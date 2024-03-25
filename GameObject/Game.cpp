@@ -4,6 +4,14 @@
 #include "Character.h"
 
 SDL_Renderer* Game::Renderer = nullptr;
+enum GameState
+{
+    GameStart,
+    Ingame,
+    GameEnd
+
+};
+
 
 Character* Player;
 
