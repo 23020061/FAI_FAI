@@ -1,21 +1,21 @@
-#include "GameStart.h"
+#include "GameState.h"
 
 class GameStart : public GameState
 {
 public:
-    virtual void Start();
-    virtual void End();
+    virtual bool Start();
+    virtual bool End();
 
     virtual void Update();
     virtual void Render();
 
-    virtual void std::string getState()
+    virtual std::string getState() const
     {
-        return Start;
+        return StartGame;
     }
 
 private:
 
-    static const std::string Start = "Start";
+    static const std::string StartGame;
 
 };

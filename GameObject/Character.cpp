@@ -15,7 +15,7 @@ SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
 
-const float CHARACTER_VEL = 3.5;
+const float CHARACTER_VEL = 4;
 
 
 Character::Character(const char* path, int x, int y)
@@ -74,9 +74,10 @@ void Character::Move()
     {
         Position.x -= Velocity.x;
     }
-    Position.x += Velocity.y;
 
-    if( ( Position.y < 0 ) || ( Position.y + destRect.h > 800 ) )
+    Position.y += Velocity.y;
+
+    if( ( Position.y < 0 ) || ( Position.y + srcRect.h > 800 ) )
     {
         Position.y -= Velocity.y;
     }
@@ -110,18 +111,35 @@ void Character::InputHandle(SDL_Event& event)
 {
         Velocity.x = 0;
         Velocity.y = 0;
-        const Uint8* CurrentKeyState = SDL_GetKeyboardState(NULL);
-        if(CurrentKeyState[SDL_SCANCODE_D])
+        if(CurrentKeyState[SDL_SCANCODE_J])
         {
-        Check = SDL_FLIP_NONE;
-        LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
-        Velocity.x += CHARACTER_VEL;
+            LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
+        }
+        else if(CurrentKeyState[SDL_SCANCODE_D])
+        {
+            Check = SDL_FLIP_NONE;
+            LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
+            Velocity.x += CHARACTER_VEL;
         }
         else if(CurrentKeyState[SDL_SCANCODE_A])
         {
             Check = SDL_FLIP_HORIZONTAL;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.x -= CHARACTER_VEL;
+        }
+        else if(CurrentKeyState[SDL_SCANCODE_S])
+        {
+            LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
+            Velocity.y += CHARACTER_VEL;
+        }
+        else if(CurrentKeyState[SDL_SCANCODE_W])
+        {
+            LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
+            Velocity.y -= CHARACTER_VEL;
+        }
+        else if(CurrentKeyState[SDL_SCANCODE_J])
+        {
+            LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
         }
         else
         {
@@ -135,8 +153,8 @@ void Character::Update()
 
     srcRect.x = Position.x;
     srcRect.y = Position.y;
-    srcRect.w = 64 * 2;
-    srcRect.h = 64 * 2;
+    srcRect.w = 64 * 1.5;
+    srcRect.h = 64 * 1.5;
 }
 
 void Character::Render()

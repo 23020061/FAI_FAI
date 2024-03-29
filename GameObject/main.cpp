@@ -1,11 +1,15 @@
 #include "Game.h"
+
 #include <bits/stdc++.h>
 
 Game* game = nullptr;
+int SCREEN_WIDTH = 1280;
+int SCREEN_HEIGHT = 720;
+
 
 int main(int argc, char* argv[])
 {
-    const int FPS = 25;
+    const int FPS = 30;
     const int frameDelay = 1000 / FPS;
 
     Uint32 frameStart;
@@ -13,7 +17,7 @@ int main(int argc, char* argv[])
 
     game = new Game();
 
-    game->init("FAI FAI", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 800, 0);
+    game->init("FAI FAI", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 
     while(game->Running() == true)
     {

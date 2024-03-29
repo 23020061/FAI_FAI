@@ -23,6 +23,8 @@ public:
     ~Character();
     void Fresh();
 
+    const Uint8* CurrentKeyState = SDL_GetKeyboardState(NULL);
+
     void InputHandle(SDL_Event &event);
 
     void LoadSpriteState(int& cntState, const int& State, const int& STATE);

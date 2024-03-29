@@ -5,6 +5,13 @@
 #include <SDL_image.h>
 #include "iostream"
 
+enum Game_State
+{
+    Start,
+    In,
+    End
+};
+
 class Game
 {
 public:

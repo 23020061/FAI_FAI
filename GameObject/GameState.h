@@ -1,17 +1,15 @@
 #pragma once
-
+#include "Game.h"
+#include <string>
 class GameState
 {
 public:
 
-    virtual void Update();
-    virtual void Render();
+    virtual void Update() = 0;
+    virtual void Render() = 0;
 
-    virtual void Start();
-    virtual void End();
-    virtual std::string getState(){return State;}
-
-private:
-    static std::string State = "";
+    virtual bool Start() = 0;
+    virtual bool End() = 0;
+    virtual std::string getState() const = 0;
 
 };
