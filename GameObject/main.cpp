@@ -3,8 +3,9 @@
 #include <bits/stdc++.h>
 
 Game* game = nullptr;
-int SCREEN_WIDTH = 1280;
-int SCREEN_HEIGHT = 720;
+
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 800;
 
 
 int main(int argc, char* argv[])
@@ -13,6 +14,7 @@ int main(int argc, char* argv[])
     const int frameDelay = 1000 / FPS;
 
     Uint32 frameStart;
+
     int frameTime;
 
     game = new Game();

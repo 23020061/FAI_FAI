@@ -17,10 +17,17 @@ SDL_RendererFlip Check = SDL_FLIP_NONE;
 
 const float CHARACTER_VEL = 4;
 
+const int CHAR_WIDTH = 64;
+const int CHAR_HEIGHT = 64;
+
 
 Character::Character(const char* path, int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
+    MapTex = TextureManager::LoadTexture("Back.jpg");
+
+    Cam.w = CAM_WIDTH;
+    Cam.h = CAM_HEIGHT;
 
     for(int i = 0; i < STATE_TOTAL; i++)
     {
@@ -58,10 +65,10 @@ Character::Character(const char* path, int x, int y)
 
         for(int j = 0; j < tmp; j++)
         {
-            Sprite[i][j].x = 64 * j;
-            Sprite[i][j].y = 64 * i;
-            Sprite[i][j].w = 64;
-            Sprite[i][j].h = 64;
+            Sprite[i][j].x = CHAR_WIDTH * j;
+            Sprite[i][j].y = CHAR_HEIGHT * i;
+            Sprite[i][j].w = CHAR_WIDTH;
+            Sprite[i][j].h = CHAR_HEIGHT;
         }
     }
 }
@@ -70,14 +77,14 @@ void Character::Move()
 {
     Position.x += Velocity.x;
 
-    if((Position.x < 0) || (Position.x + srcRect.w > 1280))
+    if((Position.x < 0) || (Position.x + srcRect.w > MAP_WIDTH) )
     {
         Position.x -= Velocity.x;
     }
 
     Position.y += Velocity.y;
 
-    if( ( Position.y < 0 ) || ( Position.y + srcRect.h > 800 ) )
+    if( ( Position.y < 0 ) || ( Position.y + srcRect.h > MAP_HEIGHT ) )
     {
         Position.y -= Velocity.y;
     }
@@ -147,17 +154,49 @@ void Character::InputHandle(SDL_Event& event)
         }
 }
 
+void Character::Camera()
+{
+    Cam.x = (Position.x + CHAR_WIDTH / 2) - MAP_WIDTH / 2;
+    Cam.y = (Position.y + CHAR_HEIGHT / 2) - MAP_HEIGHT / 2;
+
+    if(Cam.x < 0)
+    {
+        Cam.x = 0;
+    }
+    if(Cam.y < 0)
+    {
+        Cam.y = 0;
+    }
+
+    if(Cam.x > CAM_WIDTH - CHAR_WIDTH)
+    {
+        Cam.x = CAM_WIDTH - CHAR_WIDTH;
+    }
+
+    if(Cam.y > CAM_HEIGHT - CHAR_HEIGHT)
+    {
+        Cam.y = CAM_HEIGHT - CHAR_HEIGHT;
+    }
+    Cam_tmp.h = Cam.h;
+    Cam_tmp.w = Cam.w;
+
+}
+
 void Character::Update()
 {
     Move();
 
-    srcRect.x = Position.x;
-    srcRect.y = Position.y;
-    srcRect.w = 64 * 1.5;
-    srcRect.h = 64 * 1.5;
+    Camera();
+
+    srcRect.x = Position.x - Cam.x;
+    srcRect.y = Position.y - Cam.y;
+    srcRect.w = CHAR_WIDTH * 2;
+    srcRect.h = CHAR_HEIGHT * 2;
 }
 
 void Character::Render()
 {
+    SDL_RenderCopyEx(Game::Renderer, NULL, &Cam_tmp, &Cam, 0, NULL, SDL_FLIP_NONE);
+    //MAP->Render();
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
 }

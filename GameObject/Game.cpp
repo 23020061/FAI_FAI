@@ -7,6 +7,7 @@
 #include "GameStart.h"
 #include "Ingame.h"
 #include "Menu.h"
+#include "Map.h"
 
 SDL_Renderer* Game::Renderer = nullptr;
 
@@ -14,6 +15,8 @@ Character* Player;
 Uint8 CurrentState = Start;
 StateMachine* CurrentMachine = nullptr;
 Menu* menu;
+
+Map* MAP;
 
 Game::Game()
 {
@@ -46,6 +49,7 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
     menu = new Menu();
     menu->Init();
 
+    MAP = new Map();
     Player = new Character("16x16 knight 3.png", 128, 128);
 
 }
@@ -81,6 +85,7 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
+
     CurrentMachine->Update();
     if(menu->Exit() == true)
         {
@@ -93,6 +98,7 @@ void Game::Update()
         menu->Update();
         break;
         case In:
+        MAP->Update();
         Player->Update();
         break;
         case End:
@@ -113,6 +119,7 @@ void Game::Render()
         menu->Render();
         break;
         case In:
+        MAP->Render();
         Player->Render();
         break;
         case End:

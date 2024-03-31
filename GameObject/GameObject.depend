@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1711425908 source:d:\gameobject\fai fai\gameobject\game.cpp
+1711821341 source:d:\gameobject\fai fai\gameobject\game.cpp
 	"Game.h"
 	"bits/stdc++.h"
 	"TextureManager.h"
@@ -9,6 +9,7 @@
 	"GameStart.h"
 	"Ingame.h"
 	"Menu.h"
+	"Map.h"
 
 1711392544 d:\gameobject\fai fai\gameobject\game.h
 	<SDL.h>
@@ -414,28 +415,28 @@
 	"begin_code.h"
 	"close_code.h"
 
-1711470773 source:d:\gameobject\fai fai\gameobject\main.cpp
+1711868076 source:d:\gameobject\fai fai\gameobject\main.cpp
 	"Game.h"
 	<bits/stdc++.h>
 
-1711096947 d:\gameobject\fai fai\gameobject\texturemanager.h
+1711510892 d:\gameobject\fai fai\gameobject\texturemanager.h
 	"Game.h"
 
 1711098483 d:\gameobject\fai fai\gameobject\gameobject.h
 	"Game.h"
 
-1711096288 source:d:\gameobject\fai fai\gameobject\texturemanager.cpp
+1711510894 source:d:\gameobject\fai fai\gameobject\texturemanager.cpp
 	"TextureManager.h"
 
 1711098614 source:d:\gameobject\fai fai\gameobject\gameobject.cpp
 	"GameObject.h"
 	"TextureManager.h"
 
-1711470443 source:d:\gameobject\fai fai\gameobject\character.cpp
+1711871215 source:d:\gameobject\fai fai\gameobject\character.cpp
 	"Character.h"
 	"TextureManager.h"
 
-1711377489 d:\gameobject\fai fai\gameobject\character.h
+1711872187 d:\gameobject\fai fai\gameobject\character.h
 	"Game.h"
 	"Vector2D.h"
 
@@ -496,4 +497,13 @@
 1711444760 d:\gameobject\fai fai\gameobject\menu.h
 	"Game.h"
 	"Button.h"
+
+1711871324 source:d:\gameobject\fai fai\gameobject\map.cpp
+	"Map.h"
+	<bits/stdc++.h>
+	"TextureManager.h"
+
+1711821283 d:\gameobject\fai fai\gameobject\map.h
+	"Game.h"
+	<bits/stdc++.h>
 
