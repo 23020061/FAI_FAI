@@ -1,31 +1,60 @@
 #include "Game.h"
-#include <bits/stdc++.h>
 
-struct TileSet
+
+struct TextureTile;
+
+class Tile
 {
-    SDL_Texture* TexMap;
-    int firstID;
-    std::vector <SDL_Rect> SaveRect;
+public:
+    Tile(int x, int y, int typeTile);
+
+    void Render(TextureTile* tmp, SDL_Rect &Camera);
+
+    int getType()
+    {
+        return mType;
+    }
+
+    SDL_Rect getBox()
+    {
+        return mBox;
+    }
+
+private:
+
+    SDL_Rect mBox;
+
+    int mType;
+
+};
+
+struct TextureTile
+{
+    SDL_Texture* Textile;
+    int firstID = 0;
+    SDL_Rect TileClip[1000];
 };
 
 class Map
 {
-public:
+  public:
 
     Map();
 
-    ~Map();
+    void UpdateTile(TextureTile &tmp);
 
-    void Update();
+    void Render(SDL_Rect camera);
 
-    void loadTile(TileSet &tmp);
 
-    void Render();
 
-private:
+  private:
 
-    long long MapGame[5][51][81];
-    TileSet Map_[7];
-    SDL_Rect MapRect;
+    int TOTAL = 2;
+
+    TextureTile Tex[2];
+
+    int layer = 4, Rect_Width = 100, Rect_Height = 100 ;
+
+    Tile* TileSprite[4][3201][3201];
 
 };

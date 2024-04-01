@@ -1,117 +1,118 @@
 #include "Map.h"
-#include <bits/stdc++.h>
 #include "TextureManager.h"
+#include <bits/stdc++.h>
+#include "Character.h"
 
-const int TILE_WIDTH = 16;
-const int TILE_HEIGHT = 16;
+const int TILE_WIDTH = 32;
+const int TILE_HEIGHT = 32;
+
+Tile::Tile(int x, int y, int typeTile)
+{
+    mBox.x = x;
+
+    mBox.y = y;
+
+    mBox.w = TILE_WIDTH;
+    mBox.h = TILE_HEIGHT;
+
+    mType = typeTile;
+}
+
+void Tile::Render(TextureTile* tmp ,SDL_Rect& Camera)
+{
+    int x = 1;
+    while(x < 2)
+    {
+        if(mType < tmp[x].firstID)
+        {
+            TextureManager::Render((mBox.x - Camera.x), (mBox.y - Camera.y) , mBox.w, mBox.h, tmp[x - 1].Textile, &tmp[x - 1].TileClip[mType - tmp[x - 1].firstID + 1], 0, NULL, SDL_FLIP_NONE);
+            break;
+        }
+        else
+            x++;
+    }
+    if(mType > tmp[x - 1].firstID)
+    {
+        TextureManager::Render((mBox.x - Camera.x), (mBox.y - Camera.y) , mBox.w, mBox.h, tmp[x - 1].Textile, &tmp[x - 1].TileClip[mType - tmp[x - 1].firstID + 1], 0, NULL, SDL_FLIP_NONE);
+    }
+
+}
 
 Map::Map()
 {
-    std::ifstream fi("Map.txt");
+    Tex[0].Textile = TextureManager::LoadTexture("volcanoe_tiles.png");
+    Tex[1].Textile = TextureManager::LoadTexture("volcanoe_assets.png");
 
-    for(int i = 0; i < 4; i++)
+    Tex[0].firstID = 1;
+    Tex[1].firstID = 181;
+
+    for(int i = 0; i < TOTAL; i++)
     {
-        for(int j = 0; j < 50; j++)
-        {
-            for(int k = 0; k < 80; k++)
-            {
-                fi>>MapGame[i][j][k];
-                //std::cout << MapGame[i][j][k] << ' ';
-            }
-             //std::cout << '\n';
-        }
-         //std::cout << '\n';
+        //std:: cout << i << '\n';
+        UpdateTile(Tex[i]);
     }
 
-    Map_[0].TexMap = TextureManager::LoadTexture("Details.png");
-    Map_[1].TexMap = TextureManager::LoadTexture("Port Town Free.png");
-    Map_[2].TexMap = TextureManager::LoadTexture("Con House 1.png");
-    Map_[3].TexMap = TextureManager::LoadTexture("Buildings.png");
-    Map_[4].TexMap = TextureManager::LoadTexture("Props.png");
-    Map_[5].TexMap = TextureManager::LoadTexture("Tileset_RockSlope.png");
-    Map_[6].TexMap = TextureManager::LoadTexture("Adventure Awaits Asset Pack 1.0.png");
-    Map_[0].firstID = 1;
-    Map_[1].firstID = 415;
-    Map_[2].firstID = 685;
-    Map_[3].firstID = 945;
-    Map_[4].firstID = 1387;
-    Map_[5].firstID = 1567;
-    Map_[6].firstID = 5663;
+    std::ifstream fi("Map.txt");
 
-        for(int i = 0; i < 7; i++)
+    for(int i = 0; i < layer; i++)
     {
-        loadTile(Map_[i]);
+        int x = 0, y = 0;
+        for(int j = 0; j < Rect_Height; j++)
+        {
+            long long tmp ;
+            for(int k = 0; k < Rect_Width; k++)
+            {
+                fi >> tmp;
+                std::cout << tmp << ' ';
+                //if(tmp == -1) tmp = 0;
+                TileSprite[i][j][k] = new Tile(x, y, tmp);
+
+                x += TILE_WIDTH;
+
+                if(x >= MAP_WIDTH)
+                {
+                    y += TILE_HEIGHT;
+                    x = 0;
+                }
+            }
+            std::cout << '\n';
+        }
+        std::cout << '\n';
     }
 }
 
-void Map::loadTile(TileSet &tmp)
+void Map::UpdateTile(TextureTile &tmp)
 {
     int width = 0, height = 0;
 
-    SDL_Texture* temp = tmp.TexMap;
-    SDL_QueryTexture(temp, NULL, NULL, &width, &height);
-    std:: cout << width << ' ' << height << '\n';
-    int cnt_width = 0, cnt_height = 0;
-    cnt_width -= TILE_WIDTH;
-    for(int i = 0; i < (width * height) / (TILE_WIDTH * TILE_HEIGHT); i++)
+    SDL_QueryTexture(tmp.Textile, NULL, NULL, &width, &height);
+    //std::cout << width << ';' << height << '\n';
+    int cnt = 1;
+    for(int j = 0; j < height; j += TILE_HEIGHT)
     {
-
-        if(cnt_width >= width - TILE_WIDTH)
+        for(int i = 0; i < width; i += TILE_WIDTH)
         {
-            cnt_height += TILE_HEIGHT;
-            cnt_width = 0;
+            tmp.TileClip[cnt].x = i;
+            tmp.TileClip[cnt].y = j;
+            tmp.TileClip[cnt].w = TILE_WIDTH;
+            tmp.TileClip[cnt].h = TILE_HEIGHT;
+            cnt++;
         }
-        else
-        {
-            cnt_width += TILE_WIDTH;
-        }
-
-        SDL_Rect x = {cnt_width, cnt_height, TILE_WIDTH, TILE_HEIGHT};
-        //std::cout << i << ' ';
-        //std::cout << cnt_width << ' ' << cnt_height << '\n';
-        tmp.SaveRect.push_back(x);
     }
-    //std::cout << '\n';
+   // std::cout << cnt - 1 << '\n';
 }
 
-void Map::Update()
+void Map::Render(SDL_Rect camera)
 {
-
-}
-
-void Map::Render()
-{
-
-    for(int i = 0; i < 4; i++)
+   for(int i = 0; i < 4; i++)
     {
-        for(int j = 0; j < 50; j++)
+        for(int j = 0; j < Rect_Height; j++)
         {
-            for(int k = 0; k < 80; k++)
+            for(int k = 0; k < Rect_Width; k++)
             {
-                MapRect.x = k * TILE_WIDTH * 2;
-                MapRect.y = j * TILE_HEIGHT * 2;
-                MapRect.w = TILE_WIDTH * 2;
-                MapRect.h = TILE_HEIGHT * 2;
-
-                //std::cout << "(" << MapRect.x << ";" << MapRect.y << ")" << '\n';
-                if(MapGame[i][j][k] != 0)
-                {
-                    int x = 1;
-                    while(x <= 7)
-                    {
-                        if(MapGame[i][j][k] < Map_[x].firstID)
-                        {
-                            SDL_RenderCopyEx(Game::Renderer, Map_[x - 1].TexMap, &Map_[x - 1].SaveRect[MapGame[i][j][k] - Map_[x - 1].firstID], &MapRect, 0, NULL, SDL_FLIP_NONE );
-                            //SDL_RenderCopyEx(Game::Renderer, Map_[x - 1].TexMap, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-                            break;
-                        }
-                        else
-                        {
-                            x++;
-                        }
-                    }
-                }
+                TileSprite[i][j][k]->Render(Tex, camera);
             }
         }
+
     }
 }

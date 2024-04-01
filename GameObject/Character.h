@@ -14,10 +14,10 @@ enum
     STATE_TOTAL
 };
 
-const int MAP_WIDTH = 2560;
-const int MAP_HEIGHT = 1440;
+const int MAP_WIDTH = 3200;
+const int MAP_HEIGHT = 3200;
 const int CAM_WIDTH = 1280;
-const int CAM_HEIGHT = 720;
+const int CAM_HEIGHT = 800;
 
 class Character
 {
@@ -42,14 +42,18 @@ public:
 
     void Render();
 
+    SDL_Rect GetPositionCam()
+    {
+        return Cam;
+    }
+
 private:
 
     Vector2D Position;
     Vector2D Velocity;
     SDL_Texture* CharTex;
-    SDL_Texture* MapTex;
     SDL_Rect srcRect, destRect;
-    SDL_Rect Cam, Cam_tmp;
+    SDL_Rect Cam;
 
 };
 

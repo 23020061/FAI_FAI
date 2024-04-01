@@ -98,7 +98,6 @@ void Game::Update()
         menu->Update();
         break;
         case In:
-        MAP->Update();
         Player->Update();
         break;
         case End:
@@ -119,7 +118,7 @@ void Game::Render()
         menu->Render();
         break;
         case In:
-        MAP->Render();
+        MAP->Render(Player->GetPositionCam());
         Player->Render();
         break;
         case End:

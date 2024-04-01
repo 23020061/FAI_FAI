@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "TextureManager.h"
+#include "Map.h"
 
 int IDLE = 5, cntIDLE = 0,
     MOVERUN = 8, cntMOVERUN = 0,
@@ -15,7 +16,7 @@ SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
 
-const float CHARACTER_VEL = 4;
+const float CHARACTER_VEL = 30;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
@@ -24,7 +25,7 @@ const int CHAR_HEIGHT = 64;
 Character::Character(const char* path, int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
-    MapTex = TextureManager::LoadTexture("Back.jpg");
+    //MapTex = TextureManager::LoadTexture("Back.jpg");
 
     Cam.w = CAM_WIDTH;
     Cam.h = CAM_HEIGHT;
@@ -144,10 +145,6 @@ void Character::InputHandle(SDL_Event& event)
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.y -= CHARACTER_VEL;
         }
-        else if(CurrentKeyState[SDL_SCANCODE_J])
-        {
-            LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
-        }
         else
         {
             LoadSpriteState(cntIDLE, IDLE, STATE_IDLE);
@@ -156,8 +153,8 @@ void Character::InputHandle(SDL_Event& event)
 
 void Character::Camera()
 {
-    Cam.x = (Position.x + CHAR_WIDTH / 2) - MAP_WIDTH / 2;
-    Cam.y = (Position.y + CHAR_HEIGHT / 2) - MAP_HEIGHT / 2;
+    Cam.x = (Position.x + CHAR_WIDTH / 2) - CAM_WIDTH / 2;
+    Cam.y = (Position.y + CHAR_HEIGHT / 2) - CAM_HEIGHT / 2;
 
     if(Cam.x < 0)
     {
@@ -168,18 +165,15 @@ void Character::Camera()
         Cam.y = 0;
     }
 
-    if(Cam.x > CAM_WIDTH - CHAR_WIDTH)
+    if(Cam.x > MAP_WIDTH - CAM_WIDTH)
     {
-        Cam.x = CAM_WIDTH - CHAR_WIDTH;
+        Cam.x = MAP_WIDTH - CAM_WIDTH;
     }
 
-    if(Cam.y > CAM_HEIGHT - CHAR_HEIGHT)
+    if(Cam.y > MAP_HEIGHT - CAM_HEIGHT)
     {
-        Cam.y = CAM_HEIGHT - CHAR_HEIGHT;
+        Cam.y = MAP_HEIGHT - CAM_HEIGHT;
     }
-    Cam_tmp.h = Cam.h;
-    Cam_tmp.w = Cam.w;
-
 }
 
 void Character::Update()
@@ -196,7 +190,8 @@ void Character::Update()
 
 void Character::Render()
 {
-    SDL_RenderCopyEx(Game::Renderer, NULL, &Cam_tmp, &Cam, 0, NULL, SDL_FLIP_NONE);
-    //MAP->Render();
+
+    //std::cout <<'(' << Position.x << ';' << Position.y  << ')' << ' ' << '(' <<Cam.x << ';' << Cam.y << ')' <<  '\n';
+    //SDL_RenderCopyEx(Game::Renderer, MapTex, &Cam, NULL, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
 }
