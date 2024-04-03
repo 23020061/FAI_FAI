@@ -21,7 +21,6 @@ const float CHARACTER_VEL = 30;
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
 
-
 Character::Character(const char* path, int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
@@ -186,6 +185,7 @@ void Character::Update()
     srcRect.y = Position.y - Cam.y;
     srcRect.w = CHAR_WIDTH * 2;
     srcRect.h = CHAR_HEIGHT * 2;
+
 }
 
 void Character::Render()
@@ -193,5 +193,7 @@ void Character::Render()
 
     //std::cout <<'(' << Position.x << ';' << Position.y  << ')' << ' ' << '(' <<Cam.x << ';' << Cam.y << ')' <<  '\n';
     //SDL_RenderCopyEx(Game::Renderer, MapTex, &Cam, NULL, 0, NULL, SDL_FLIP_NONE);
+
+
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
 }

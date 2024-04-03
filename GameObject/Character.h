@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Vector2D.h"
+#include "Collision.h"
+
 enum
 {
     STATE_IDLE,
