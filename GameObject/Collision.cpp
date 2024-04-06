@@ -9,39 +9,24 @@ Collision::Collision(int x, int y, int w, int h)
 }
 
 
-bool Collision::checkCollision(Collision a, Collision b)
+bool Collision::checkCollision( Collision b)
 {
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
 
-    leftA = a.getCollisionBox().x;
-    rightA = a.getCollisionBox().x + a.getCollisionBox().w;
-    topA = a.getCollisionBox().y;
-    bottomA = a.getCollisionBox().y + a.getCollisionBox().h;
+    leftA = CollisionBox.x;
+    rightA = CollisionBox.x + CollisionBox.w;
+    topA = CollisionBox.y;
+    bottomA = CollisionBox.y + CollisionBox.h;
 
     leftB = b.getCollisionBox().x;
     rightB = b.getCollisionBox().x + b.getCollisionBox().w;
     topB = b.getCollisionBox().y;
     bottomB = b.getCollisionBox().y + b.getCollisionBox().h;
 
-    if( bottomA <= topB )
-    {
-        return false;
-    }
-
-    if( topA >= bottomB )
-    {
-        return false;
-    }
-
-    if( rightA <= leftB )
-    {
-        return false;
-    }
-
-    if( leftA >= rightB )
+   if( ( ( bottomA <= topB ) || ( topA >= bottomB ) || ( rightA <= leftB ) || ( leftA >= rightB ) ) )
     {
         return false;
     }
@@ -49,8 +34,12 @@ bool Collision::checkCollision(Collision a, Collision b)
     return true;
 }
 
-void Collision::Update(int x, int y)
+void Collision::UpdateX(int x)
 {
     CollisionBox.x = x;
+}
+
+void Collision::UpdateY(int y)
+{
     CollisionBox.y = y;
 }

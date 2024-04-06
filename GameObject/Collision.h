@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Game.h"
 
 class Collision
@@ -11,9 +13,12 @@ public:
         return CollisionBox;
     }
 
-    bool checkCollision(Collision a, Collision b);
+    bool checkCollision( Collision b);
 
-    void Update(int x, int y);
+    void UpdateX(int x);
+
+    void UpdateY(int y);
+
 
 private:
 

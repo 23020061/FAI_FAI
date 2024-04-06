@@ -8,6 +8,8 @@
 #include "Ingame.h"
 #include "Menu.h"
 #include "Map.h"
+#include "Collision.h"
+
 
 SDL_Renderer* Game::Renderer = nullptr;
 
@@ -50,7 +52,7 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
     menu->Init();
 
     MAP = new Map();
-    Player = new Character("16x16 knight 3.png", 128, 128);
+    Player = new Character("16x16 knight 3.png", 640, 400);
 
 }
 
@@ -98,7 +100,7 @@ void Game::Update()
         menu->Update();
         break;
         case In:
-        Player->Update();
+        Player->Update(MAP->HasCollision());
         break;
         case End:
         break;

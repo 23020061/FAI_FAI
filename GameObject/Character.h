@@ -1,7 +1,9 @@
+#pragma once
+
 #include "Game.h"
 #include "Vector2D.h"
 #include "Collision.h"
-
+#include "bits/stdc++.h"
 enum
 {
     STATE_IDLE,
@@ -21,10 +23,13 @@ const int MAP_HEIGHT = 3200;
 const int CAM_WIDTH = 1280;
 const int CAM_HEIGHT = 800;
 
+
 class Character
 {
 public:
     Character(const char* Path, int x, int y);
+
+
 
     ~Character();
 
@@ -36,11 +41,11 @@ public:
 
     void LoadSpriteState(int& cntState, const int& State, const int& STATE);
 
-    void Move();
+    void Move(std::vector <Collision> MapColli);
 
     void Camera();
 
-    void Update();
+    void Update(std::vector <Collision> MapColli);
 
     void Render();
 
@@ -49,6 +54,7 @@ public:
         return Cam;
     }
 
+
 private:
 
     Vector2D Position;
@@ -56,6 +62,7 @@ private:
     SDL_Texture* CharTex;
     SDL_Rect srcRect, destRect;
     SDL_Rect Cam;
+
 
 };
 

@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "TextureManager.h"
 #include "Map.h"
+#include "Collision.h"
 
 int IDLE = 5, cntIDLE = 0,
     MOVERUN = 8, cntMOVERUN = 0,
@@ -16,15 +17,19 @@ SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
 
-const float CHARACTER_VEL = 30;
+const float CHARACTER_VEL = 5;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
 
+Collision ColliChar(640, 400, CHAR_WIDTH * 2, CHAR_HEIGHT * 2);
+
 Character::Character(const char* path, int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
-    //MapTex = TextureManager::LoadTexture("Back.jpg");
+
+    Position.x = x;
+    Position.y = y;
 
     Cam.w = CAM_WIDTH;
     Cam.h = CAM_HEIGHT;
@@ -73,23 +78,42 @@ Character::Character(const char* path, int x, int y)
     }
 }
 
-void Character::Move()
+void Character::Move(std::vector<Collision> MapColli)
 {
     Position.x += Velocity.x;
+    bool checkCharX = false;
 
-    if((Position.x < 0) || (Position.x + srcRect.w > MAP_WIDTH) )
+    for(int i = 0; i < MapColli.size(); i++)
+    {
+        if(ColliChar.checkCollision(MapColli[i]) == true)
+        {
+            checkCharX = true;
+            break;
+        }
+    }
+
+    if((Position.x < 0) || (Position.x + srcRect.w > MAP_WIDTH) || checkCharX == 1)
     {
         Position.x -= Velocity.x;
     }
 
     Position.y += Velocity.y;
+    bool checkCharY = false;
 
-    if( ( Position.y < 0 ) || ( Position.y + srcRect.h > MAP_HEIGHT ) )
+    for(int i = 0; i < MapColli.size(); i++)
+    {
+        if(ColliChar.checkCollision(MapColli[i]))
+        {
+            checkCharY = true;
+            break;
+        }
+    }
+    if((Position.y < 0) || (Position.y + srcRect.h > MAP_HEIGHT) || checkCharY == 1)
     {
         Position.y -= Velocity.y;
     }
-
 }
+
 
 void Character::Fresh()
 {
@@ -175,9 +199,9 @@ void Character::Camera()
     }
 }
 
-void Character::Update()
+void Character::Update(std::vector <Collision> MapColli)
 {
-    Move();
+    Move(MapColli);
 
     Camera();
 
@@ -190,10 +214,6 @@ void Character::Update()
 
 void Character::Render()
 {
-
-    //std::cout <<'(' << Position.x << ';' << Position.y  << ')' << ' ' << '(' <<Cam.x << ';' << Cam.y << ')' <<  '\n';
     //SDL_RenderCopyEx(Game::Renderer, MapTex, &Cam, NULL, 0, NULL, SDL_FLIP_NONE);
-
-
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
 }

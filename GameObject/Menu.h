@@ -1,3 +1,6 @@
+#pragma once
+
+
 #include "Game.h"
 #include "Button.h"
 

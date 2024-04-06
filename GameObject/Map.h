@@ -1,6 +1,8 @@
+#pragma once
+
 #include "Game.h"
-
-
+#include "Collision.h"
+#include "bits/stdc++.h"
 struct TextureTile;
 
 class Tile
@@ -31,7 +33,7 @@ private:
 struct TextureTile
 {
     SDL_Texture* Textile;
-    int firstID = 0;
+    int firstID;
     SDL_Rect TileClip[1000];
 };
 
@@ -45,7 +47,7 @@ class Map
 
     void Render(SDL_Rect camera);
 
-
+    std::vector <Collision> HasCollision();
 
   private:
 

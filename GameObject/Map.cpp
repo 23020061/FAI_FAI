@@ -6,6 +6,19 @@
 const int TILE_WIDTH = 32;
 const int TILE_HEIGHT = 32;
 
+std::vector <int> IDhasCollision =
+{
+15 + 1, 16 + 1, 17 + 1,
+    33 + 1, 34 + 1, 35 + 1,
+    51 + 1, 52 + 1, 53 + 1,
+    86 + 1, 87 + 1, 88 + 1, 89 + 1,
+    104 + 1, 106 + 1, 107 + 1,
+    122 + 1, 123 + 1, 124 + 1, 125 + 1,
+    140 + 1, 141 + 1, 142 + 1, 143 + 1,
+    0 + 181, 1 + 181, 2 + 181, 3 + 181, 4 + 181, 5 + 181, 6 + 181, 7 + 181, 8 + 181, 9 + 181, 10 + 181, 11 + 181, 12 + 181, 13 + 181, 14 + 181, 15 + 181, 16 + 181, 17 + 181, 18 + 181, 19 + 181, 20 + 181, 21 + 181, 22 + 181, 23 + 181, 24 + 181, 25 + 181, 26 + 181, 27 + 181, 28 + 181, 29 + 181, 30 + 181, 31 + 181, 32 + 181, 33 + 181,34 + 181, 35 + 181, 36 + 181, 37 + 181, 38 + 181, 39 + 181, 40 + 181, 41 + 181, 42 + 181, 43 + 181, 44 + 181, 45 + 181, 46 + 181, 47 + 181, 48 + 181, 49 + 181, 50 + 181, 51 + 181, 52 + 181, 53 + 181, 54 + 181, 55 + 181, 56 + 181, 57 + 181, 58 + 181, 59 + 181, 60 + 181, 61 + 181, 62 + 181, 63 + 181, 64 + 181, 65 + 181, 66 + 181, 67 + 181, 68 + 181, 69 + 181, 70 + 181, 71 + 181, 72 + 181, 73 + 181, 74 + 181, 75 + 181, 76 + 181, 77 + 181, 78 + 181, 79 + 181, 80 + 181, 81 + 181, 82 + 181, 83 + 181, 84 + 181, 85 + 181, 86 + 181, 87 + 181, 88 + 181, 89 + 181
+};
+
+std::vector <Collision> SaveCollisionMap;
 Tile::Tile(int x, int y, int typeTile)
 {
     mBox.x = x;
@@ -63,9 +76,15 @@ Map::Map()
             for(int k = 0; k < Rect_Width; k++)
             {
                 fi >> tmp;
-                std::cout << tmp << ' ';
-                //if(tmp == -1) tmp = 0;
+
                 TileSprite[i][j][k] = new Tile(x, y, tmp);
+                auto a = std::find(IDhasCollision.begin(), IDhasCollision.end(), tmp);
+                if(a != IDhasCollision.end())
+                {
+                    Collision temp(x, y, TILE_WIDTH, TILE_HEIGHT);
+                    SaveCollisionMap.push_back(temp);
+                    //cout << x << ' ' << y << ' '
+                }
 
                 x += TILE_WIDTH;
 
@@ -75,9 +94,7 @@ Map::Map()
                     x = 0;
                 }
             }
-            std::cout << '\n';
         }
-        std::cout << '\n';
     }
 }
 
@@ -115,4 +132,9 @@ void Map::Render(SDL_Rect camera)
         }
 
     }
+}
+
+std::vector <Collision> Map::HasCollision()
+{
+    return SaveCollisionMap;
 }
