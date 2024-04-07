@@ -17,12 +17,12 @@ SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
 
-const float CHARACTER_VEL = 5;
+const float CHARACTER_VEL = 10;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
 
-Collision ColliChar(640, 400, CHAR_WIDTH * 2, CHAR_HEIGHT * 2);
+Collision ColliChar(1600 + 54, 1600 + 58, 12 * 2, 19 * 2);
 
 Character::Character(const char* path, int x, int y)
 {
@@ -81,37 +81,45 @@ Character::Character(const char* path, int x, int y)
 void Character::Move(std::vector<Collision> MapColli)
 {
     Position.x += Velocity.x;
+    ColliChar.UpdateX(Position.x + 54);
     bool checkCharX = false;
 
     for(int i = 0; i < MapColli.size(); i++)
     {
-        if(ColliChar.checkCollision(MapColli[i]) == true)
+       if(ColliChar.checkCollision(MapColli[i]) == true && checkCharX == false)
         {
             checkCharX = true;
+            std::cout << '(' << MapColli[i].getCollisionBox().x << ';'<< MapColli[i].getCollisionBox().y << ')' << '\n';
+            std::cout << Position.x << ' ' << Position.y << '\n';
             break;
         }
     }
 
-    if((Position.x < 0) || (Position.x + srcRect.w > MAP_WIDTH) || checkCharX == 1)
+    if((Position.x < 0) || (Position.x > MAP_WIDTH - CHAR_WIDTH * 2) || checkCharX == true)
     {
         Position.x -= Velocity.x;
     }
 
     Position.y += Velocity.y;
+
+    ColliChar.UpdateY(Position.y + 58);
+
     bool checkCharY = false;
 
     for(int i = 0; i < MapColli.size(); i++)
     {
-        if(ColliChar.checkCollision(MapColli[i]))
+    if(ColliChar.checkCollision(MapColli[i]))
         {
             checkCharY = true;
-            break;
+            //break;
         }
     }
-    if((Position.y < 0) || (Position.y + srcRect.h > MAP_HEIGHT) || checkCharY == 1)
+    if((Position.y < 0) || (Position.y > MAP_HEIGHT - CHAR_HEIGHT * 2) || checkCharY == true)
     {
         Position.y -= Velocity.y;
     }
+
+
 }
 
 
@@ -205,8 +213,9 @@ void Character::Update(std::vector <Collision> MapColli)
 
     Camera();
 
-    srcRect.x = Position.x - Cam.x;
-    srcRect.y = Position.y - Cam.y;
+    srcRect.x  = Position.x - Cam.x;
+    srcRect.y  = Position.y - Cam.y;
+
     srcRect.w = CHAR_WIDTH * 2;
     srcRect.h = CHAR_HEIGHT * 2;
 

@@ -52,7 +52,7 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
     menu->Init();
 
     MAP = new Map();
-    Player = new Character("16x16 knight 3.png", 640, 400);
+    Player = new Character("16x16 knight 3.png", 1600, 1600);
 
 }
 

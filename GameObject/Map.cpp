@@ -83,7 +83,7 @@ Map::Map()
                 {
                     Collision temp(x, y, TILE_WIDTH, TILE_HEIGHT);
                     SaveCollisionMap.push_back(temp);
-                    //cout << x << ' ' << y << ' '
+                    //std::cout << tmp << ' ';
                 }
 
                 x += TILE_WIDTH;
@@ -94,6 +94,7 @@ Map::Map()
                     x = 0;
                 }
             }
+            std::cout << '\n';
         }
     }
 }
@@ -116,7 +117,7 @@ void Map::UpdateTile(TextureTile &tmp)
             cnt++;
         }
     }
-   // std::cout << cnt - 1 << '\n';
+
 }
 
 void Map::Render(SDL_Rect camera)

@@ -29,8 +29,6 @@ class Character
 public:
     Character(const char* Path, int x, int y);
 
-
-
     ~Character();
 
     void Fresh();

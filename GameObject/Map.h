@@ -57,6 +57,6 @@ class Map
 
     int layer = 4, Rect_Width = 100, Rect_Height = 100 ;
 
-    Tile* TileSprite[4][3201][3201];
+    Tile* TileSprite[4][3200][3200];
 
 };
