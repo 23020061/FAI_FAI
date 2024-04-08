@@ -52,13 +52,16 @@ public:
         return Cam;
     }
 
-
+    Vector2D getPosChar()
+    {
+        return Position;
+    }
 private:
 
     Vector2D Position;
     Vector2D Velocity;
     SDL_Texture* CharTex;
-    SDL_Rect srcRect, destRect;
+    SDL_Rect srcRect;
     SDL_Rect Cam;
 
 

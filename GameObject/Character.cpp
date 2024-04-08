@@ -89,8 +89,8 @@ void Character::Move(std::vector<Collision> MapColli)
        if(ColliChar.checkCollision(MapColli[i]) == true && checkCharX == false)
         {
             checkCharX = true;
-            std::cout << '(' << MapColli[i].getCollisionBox().x << ';'<< MapColli[i].getCollisionBox().y << ')' << '\n';
-            std::cout << Position.x << ' ' << Position.y << '\n';
+            //std::cout << '(' << MapColli[i].getCollisionBox().x << ';'<< MapColli[i].getCollisionBox().y << ')' << '\n';
+            //std::cout << Position.x << ' ' << Position.y << '\n';
             break;
         }
     }
@@ -150,35 +150,53 @@ void Character::InputHandle(SDL_Event& event)
 {
         Velocity.x = 0;
         Velocity.y = 0;
+
+        SDL_PumpEvents();
+
         if(CurrentKeyState[SDL_SCANCODE_J])
         {
             LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
         }
-        else if(CurrentKeyState[SDL_SCANCODE_D])
+        else if(CurrentKeyState[SDL_SCANCODE_K])
         {
+            LoadSpriteState(cntSHEILDBLOCKING, SHIELDBLOCKING, STATE_SHIELDBLOCKING);
+        }
+        else
+        {
+            //if()
+            bool state = false;
+            if(CurrentKeyState[SDL_SCANCODE_D])
+        {
+            state = true;
             Check = SDL_FLIP_NONE;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.x += CHARACTER_VEL;
         }
-        else if(CurrentKeyState[SDL_SCANCODE_A])
+        if(CurrentKeyState[SDL_SCANCODE_A])
         {
+            state = true;
             Check = SDL_FLIP_HORIZONTAL;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.x -= CHARACTER_VEL;
         }
-        else if(CurrentKeyState[SDL_SCANCODE_S])
+        if(CurrentKeyState[SDL_SCANCODE_S])
         {
+            state = true;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.y += CHARACTER_VEL;
         }
-        else if(CurrentKeyState[SDL_SCANCODE_W])
+        if(CurrentKeyState[SDL_SCANCODE_W])
         {
+            state = true;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.y -= CHARACTER_VEL;
         }
-        else
+
+        if(state == false)
         {
             LoadSpriteState(cntIDLE, IDLE, STATE_IDLE);
+        }
+
         }
 }
 

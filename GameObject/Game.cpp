@@ -9,11 +9,12 @@
 #include "Menu.h"
 #include "Map.h"
 #include "Collision.h"
-
+#include "Enemy.h"
 
 SDL_Renderer* Game::Renderer = nullptr;
 
 Character* Player;
+Enemy1* Enemy;
 Uint8 CurrentState = Start;
 StateMachine* CurrentMachine = nullptr;
 Menu* menu;
@@ -53,7 +54,7 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
 
     MAP = new Map();
     Player = new Character("16x16 knight 3.png", 1600, 1600);
-
+    Enemy = new Enemy1(0, 0);
 }
 
 void Game::HandleEvents()
@@ -101,6 +102,7 @@ void Game::Update()
         break;
         case In:
         Player->Update(MAP->HasCollision());
+        Enemy->Update(Player->getPosChar());
         break;
         case End:
         break;
@@ -122,6 +124,7 @@ void Game::Render()
         case In:
         MAP->Render(Player->GetPositionCam());
         Player->Render();
+        Enemy->Render();
         break;
         case End:
         break;
