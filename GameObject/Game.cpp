@@ -10,14 +10,18 @@
 #include "Map.h"
 #include "Collision.h"
 #include "Enemy.h"
+#include "GameEnd.h"
+
 
 SDL_Renderer* Game::Renderer = nullptr;
 
 Character* Player;
-Enemy1* Enemy;
+std::vector <Enemy1*> Enemy;
 Uint8 CurrentState = Start;
 StateMachine* CurrentMachine = nullptr;
 Menu* menu;
+
+MenuEnd* MenuExit;
 
 Map* MAP;
 
@@ -26,6 +30,9 @@ Game::Game()
 }
 Game::~Game()
 {
+}
+int GetRandom(int min, int max) {
+    return min + (int)(rand() * (max - min + 1.0) / (1.0 + RAND_MAX));
 }
 
 void Game::init(const char* title, int x, int y, int Width, int Height, bool FullScreen)
@@ -52,9 +59,12 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
     menu = new Menu();
     menu->Init();
 
+    MenuExit = new MenuEnd();
+    MenuExit->Init();
+
     MAP = new Map();
     Player = new Character("16x16 knight 3.png", 1600, 1600);
-    Enemy = new Enemy1(0, 0);
+    Enemy.push_back(new Enemy1(400, 600));
 }
 
 void Game::HandleEvents()
@@ -78,6 +88,7 @@ void Game::HandleEvents()
         Player->InputHandle(Event);
         break;
         case End:
+        MenuExit->handle(Event);
         break;
     }
 
@@ -95,18 +106,42 @@ void Game::Update()
             CurrentMachine->Change(new Ingame());
             CurrentState = In;
         }
+
+    if(Player->Exit() == true)
+    {
+        CurrentMachine->Change(new GameEnd());
+        CurrentState = End;
+    }
+
+
+
     switch(CurrentState)
     {
         case Start:
         menu->Update();
         break;
         case In:
-        Player->Update(MAP->HasCollision());
-        Enemy->Update(Player->getPosChar());
+        Player->Update(MAP->HasCollision(), Enemy);
+        while(Enemy.size() < 20)
+        {
+            int x, y;
+            x = GetRandom(192, 2976);
+            y = GetRandom(96, 3102);
+            Enemy.push_back(new Enemy1(x, y));
+
+        }
+
+        for(int i = 0; i < Enemy.size(); i++)
+        {
+                Enemy[i]->Update(Player->getPosChar(), Player->GetPositionCam());
+        }
+
         break;
         case End:
+        MenuExit->Update();
         break;
     }
+
 
 
 }
@@ -124,9 +159,13 @@ void Game::Render()
         case In:
         MAP->Render(Player->GetPositionCam());
         Player->Render();
-        Enemy->Render();
+        for(int i = 0; i < Enemy.size(); i++)
+        {
+            Enemy[i]->Render();
+        }
         break;
         case End:
+        MenuExit->Render();
         break;
     }
 

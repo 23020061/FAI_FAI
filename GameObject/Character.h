@@ -4,6 +4,8 @@
 #include "Vector2D.h"
 #include "Collision.h"
 #include "bits/stdc++.h"
+#include "Enemy.h"
+
 enum
 {
     STATE_IDLE,
@@ -43,7 +45,7 @@ public:
 
     void Camera();
 
-    void Update(std::vector <Collision> MapColli);
+    void Update(std::vector <Collision> MapColli, std::vector<Enemy1*> Enemy);
 
     void Render();
 
@@ -56,6 +58,14 @@ public:
     {
         return Position;
     }
+
+    bool Exit()
+    {
+        return check;
+    }
+
+    int Health_Char = 200;
+
 private:
 
     Vector2D Position;
@@ -63,6 +73,7 @@ private:
     SDL_Texture* CharTex;
     SDL_Rect srcRect;
     SDL_Rect Cam;
+    bool check = false;
 
 
 };

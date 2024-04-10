@@ -57,6 +57,7 @@
 		<Unit filename="Map.h" />
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.h" />
+		<Unit filename="MenuEnd.cpp" />
 		<Unit filename="StateMachine.cpp" />
 		<Unit filename="StateMachine.h" />
 		<Unit filename="StateManager.h" />

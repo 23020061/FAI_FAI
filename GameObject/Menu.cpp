@@ -4,8 +4,11 @@
 #include "TextureManager.h"
 void Menu::Init()
 {
-    Play = new Button("play.png", 200, 200, 260, 95);
-    Background = TextureManager::LoadTexture("background.png");
+    Play = new Button("play.png", 640 - 130, 500 - 95 / 2, 260, 95);
+    Background = TextureManager::LoadTexture("5.png");
+    TTF_Init();
+    TTF_Font* NameFont;
+    FAI_FAI = TextureManager::LoadText("monogram.ttf", "FAI_FAI", 500, NameFont);
 }
 
 void Menu::Update()
@@ -27,5 +30,8 @@ void Menu::Render()
 {
     SDL_RenderCopyEx(Game::Renderer, Background, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
 
+    TextureManager::Render(500, 200, 400, 400, FAI_FAI, NULL, 0, NULL, SDL_FLIP_NONE);
+
     Play->Render();
+
 }

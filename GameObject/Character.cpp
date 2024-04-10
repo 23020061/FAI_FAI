@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "Map.h"
 #include "Collision.h"
+#include "Enemy.h"
 
 int IDLE = 5, cntIDLE = 0,
     MOVERUN = 8, cntMOVERUN = 0,
@@ -17,12 +18,14 @@ SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
 
-const float CHARACTER_VEL = 10;
+const float CHARACTER_VEL = 4;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
 
-Collision ColliChar(1600 + 54, 1600 + 58, 12 * 2, 19 * 2);
+Collision ColliChar(1600 + 54, 1600 + 58, 25 * 2, 19 * 2);
+Collision Knight(ColliChar.getCollisionBox().x - 35 * 2, ColliChar.getCollisionBox().y - 28 * 2,  27 * 2, 21 * 2);
+
 
 Character::Character(const char* path, int x, int y)
 {
@@ -152,8 +155,9 @@ void Character::InputHandle(SDL_Event& event)
         Velocity.y = 0;
 
         SDL_PumpEvents();
-
-        if(CurrentKeyState[SDL_SCANCODE_J])
+    if(Health_Char != 0)
+    {
+            if(CurrentKeyState[SDL_SCANCODE_J])
         {
             LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
         }
@@ -163,7 +167,6 @@ void Character::InputHandle(SDL_Event& event)
         }
         else
         {
-            //if()
             bool state = false;
             if(CurrentKeyState[SDL_SCANCODE_D])
         {
@@ -198,6 +201,7 @@ void Character::InputHandle(SDL_Event& event)
         }
 
         }
+    }
 }
 
 void Character::Camera()
@@ -225,10 +229,61 @@ void Character::Camera()
     }
 }
 
-void Character::Update(std::vector <Collision> MapColli)
+void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> Enemy)
 {
     Move(MapColli);
 
+    //std::cout << Health_Char << '\n';
+
+    static int checkAttack = 0;
+    static int checkDead = 0;
+    if(Health_Char == 0)
+    {
+        checkDead++;
+        LoadSpriteState(cntDEAD, DEAD, STATE_DEAD);
+        if(checkDead == DEAD)
+        {
+            check = true;
+            SDL_DestroyTexture(CharTex);
+        }
+    }
+else
+{
+    for(int i = 0; i < Enemy.size(); i++)
+    {
+        if(Enemy[i]->attack_enemy == true)
+    {
+      Health_Char -= 20;
+    }
+    else
+    {
+        if(Check == SDL_FLIP_NONE)
+        {
+            Knight.UpdateX(ColliChar.getCollisionBox().x - 2 * 2);
+            Knight.UpdateY(ColliChar.getCollisionBox().y - 28 * 2);
+        }
+        if( Check == SDL_FLIP_HORIZONTAL )
+        {
+            Knight.UpdateX(ColliChar.getCollisionBox().x - 35 * 2);
+            Knight.UpdateY(ColliChar.getCollisionBox().y - 28 * 2);
+        }
+
+        if(CurrentKeyState[SDL_SCANCODE_J] && Knight.checkCollision(Enemy[i]->getColli()) == true)
+        {
+            if(cntATTACK == ATTACK - 1)
+            {
+                Enemy[i]->Health -= 20;
+                //std::cout << Enemy[i]->Health << '\n';
+                Enemy[i]->checkHealth = true;
+            }
+        }
+    else
+        {
+                checkAttack = 0;
+        }
+    }
+    }
+}
     Camera();
 
     srcRect.x  = Position.x - Cam.x;

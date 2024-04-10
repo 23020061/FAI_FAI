@@ -1,33 +1,16 @@
 #include "Enemy.h"
 #include "TextureManager.h"
 #include "Game.h"
+#include <bits/stdc++.h>
 
-const int ENE_WIDTH = 64;
-const int ENE_HEIGHT = 64;
-const int ENE_VEL = 4;
-
-enum
-{
-    Ene_IDLE_1,
-    Ene_MoveAndAttack_1,
-    Ene_TakenDamage_1,
-    Ene_Dead_1,
-    Ene_Total_1
-};
-
-int IDLE_1 = 6, cnt_IDLE_1 = 0,
-    MoveAndAttack_1 = 5, cnt_MoveAndAttack_1 = 0,
-    TakenDamage_1 = 4, cnt_TakenDamage_1 = 0,
-    Dead_1 = 7, cnt_Dead_1 = 0;
-
-SDL_Rect Sprite_1[Ene_Total_1][7];
-SDL_Rect Current_Ene_1;
-SDL_RendererFlip CheckEne_1 = SDL_FLIP_NONE;
 
 Enemy1::Enemy1(int x, int y)
 {
     PosEnemy.x = x;
     PosEnemy.y = y;
+
+    EnemyColli->UpdateX(PosEnemy.x);
+    EnemyColli->UpdateY(PosEnemy.y);
 
     EnemyTexture = TextureManager::LoadTexture("Massacre Sprite Sheet.png");
 
@@ -77,15 +60,18 @@ void Enemy1::LoadSpriteState(int& cntState, const int& State, const int& STATE)
 }
 
 
-void Enemy1::Update(Vector2D Target)
+void Enemy1::Update(Vector2D Target, SDL_Rect Camera)
 {
     Move(Target);
 
     PosEnemy.x += VelEnemy.x;
     PosEnemy.y += VelEnemy.y;
 
-    srcRect.x = PosEnemy.x;
-    srcRect.y = PosEnemy.y;
+    EnemyColli->UpdateX(PosEnemy.x);
+    EnemyColli->UpdateY(PosEnemy.y);
+
+    srcRect.x = PosEnemy.x - Camera.x;
+    srcRect.y = PosEnemy.y - Camera.y;
     srcRect.w = ENE_WIDTH;
     srcRect.h = ENE_HEIGHT;
 }
@@ -94,42 +80,91 @@ void Enemy1::Move(Vector2D Target)
 {
     VelEnemy.x = 0;
     VelEnemy.y = 0;
+    static int a = 0;
+    Target.y += 32;
 
-    if(Target.x != PosEnemy.x)
-    {
-        if(Target.x > PosEnemy.x)
-    {
-        CheckEne_1 = SDL_FLIP_HORIZONTAL;
-        //LoadSpriteState(cnt_MoveAndAttack_1, MoveAndAttack_1, Ene_MoveAndAttack_1);
-        VelEnemy.x += ENE_VEL;
-    }
-    else if(Target.x < PosEnemy.x)
-    {
-        CheckEne_1 = SDL_FLIP_NONE;
-        VelEnemy.x -= ENE_VEL;
-    }
-    else VelEnemy.x = 0;
-    }
-    if(Target.y != PosEnemy.y)
-    {
-        if(Target.y >= PosEnemy.y)
-    {
-        VelEnemy.y += ENE_VEL;
-    }
-    else if(Target.y < PosEnemy.y)
-    {
-        VelEnemy.y -= ENE_VEL;
-    }
-    else VelEnemy.y = 0;
-    }
-    LoadSpriteState(cnt_MoveAndAttack_1, MoveAndAttack_1, Ene_MoveAndAttack_1);
+    //Health = (Target.x - PosEnemy.x);
 
+    if(Health > 0)
+    {
+        static int checkTakenDamage = 0;
+        if(checkHealth == true)
+        {
+            LoadSpriteState(cnt_TakenDamage_1, TakenDamage_1, Ene_TakenDamage_1);
+            if(checkTakenDamage == TakenDamage_1 - 1)
+            {
+                checkHealth = false;
+                checkTakenDamage = 0;
+            }
+            checkTakenDamage++;
+        }
+    else
+    {
+        if(Target.x == PosEnemy.x && Target.y == PosEnemy.y )
+        {
+            attack_enemy = true;
+            //LoadSpriteState(cnt_IDLE_1, IDLE_1, Ene_IDLE_1);
+        }
+        else
+        {
+            attack_enemy = false;
+        //std::cout << '(' << Target.x << ';' << Target.y << ')' << ' ' <<'(' << PosEnemy.x << ';' << PosEnemy.y << ')' << '\n';
 
-
+        if(Target.x != PosEnemy.x)
+        {
+            if(Target.x > PosEnemy.x)
+        {
+            CheckEne_1 = SDL_FLIP_HORIZONTAL;
+            VelEnemy.x += ENE_VEL;
+        }
+        else if(Target.x < PosEnemy.x)
+        {
+            CheckEne_1 = SDL_FLIP_NONE;
+            VelEnemy.x -= ENE_VEL;
+        }
+        else VelEnemy.x = 0;
+        }
+        if(Target.y != PosEnemy.y)
+        {
+            if(Target.y >= PosEnemy.y)
+        {
+            VelEnemy.y += ENE_VEL;
+        }
+            else if(Target.y < PosEnemy.y)
+        {
+            VelEnemy.y -= ENE_VEL;
+        }
+            else VelEnemy.y = 0;
+        }
+            LoadSpriteState(cnt_MoveAndAttack_1, MoveAndAttack_1, Ene_MoveAndAttack_1);
+        }
+    }
+    }
+    else
+    {
+        if(Health <= 0)
+        {
+            LoadSpriteState(cnt_Dead_1, Dead_1, Ene_Dead_1);
+        a++;
+        if(a == Dead_1)
+        {
+            Destroy();
+            a = 0;
+            checkDead = true;
+        }
+        }
+    }
 }
+
 
 void Enemy1::Render()
 {
     SDL_RenderCopyEx(Game::Renderer, EnemyTexture, &Current_Ene_1, &srcRect, 0, NULL, CheckEne_1);
 
+}
+
+void Enemy1::Destroy()
+{
+    SDL_DestroyTexture(EnemyTexture);
+    delete EnemyTexture;
 }

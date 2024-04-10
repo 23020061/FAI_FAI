@@ -1,12 +1,12 @@
 #pragma once
 
-
 #include "Game.h"
 #include "Button.h"
 
-class Menu
+class MenuEnd
 {
 public:
+
     void handle(SDL_Event &e);
 
     void Update();
@@ -26,8 +26,6 @@ private:
     SDL_Texture* Background;
 
     Button* Play;
-
-    SDL_Texture* FAI_FAI;
 
     bool check;
 };

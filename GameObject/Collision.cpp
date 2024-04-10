@@ -43,3 +43,13 @@ void Collision::UpdateY(int y)
 {
     CollisionBox.y = y;
 }
+
+void Collision::UpdateW(int w)
+{
+    CollisionBox.w = w;
+}
+
+void Collision::UpdateH(int h)
+{
+    CollisionBox.h = h;
+}

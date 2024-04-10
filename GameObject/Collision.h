@@ -19,6 +19,11 @@ public:
 
     void UpdateY(int y);
 
+    void UpdateW(int w);
+
+    void UpdateH(int h);
+
+
 
 private:
 
