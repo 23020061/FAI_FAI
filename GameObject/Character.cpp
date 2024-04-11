@@ -24,15 +24,37 @@ const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
 
 Collision ColliChar(1600 + 54, 1600 + 58, 25 * 2, 19 * 2);
+
 Collision Knight(ColliChar.getCollisionBox().x - 35 * 2, ColliChar.getCollisionBox().y - 28 * 2,  27 * 2, 21 * 2);
 
-
-Character::Character(const char* path, int x, int y)
+Character::Character(const char* path,int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
 
     Position.x = x;
     Position.y = y;
+
+    IconHealth = TextureManager::LoadTexture("health.png");
+
+    HealthLeft = TextureManager::LoadTexture("HealthLeft.png");
+    HealthHolderLeft = TextureManager::LoadTexture("HealthHolderLeft.png");
+
+    HealthRight = TextureManager::LoadTexture("HealthRight.png");
+    HealthHolderRight = TextureManager::LoadTexture("HealthHolderRight.png");
+
+    HealthCenter = TextureManager::LoadTexture("HealthCenter.png");
+    HealthHolderCenter = TextureManager::LoadTexture("HealthHolderCenter.png");
+
+    IconExp = TextureManager::LoadTexture("Exp.png");
+
+    ExpLeft = TextureManager::LoadTexture("ExpLeft.png");
+    ExpHolderLeft = TextureManager::LoadTexture("ExpHolderLeft.png");
+
+    ExpRight = TextureManager::LoadTexture("ExpRight.png");
+    ExpHolderRight = TextureManager::LoadTexture("ExpHolderRight.png");
+
+    ExpCenter = TextureManager::LoadTexture("ExpCenter.png");
+    ExpHolderCenter = TextureManager::LoadTexture("ExpHolderCenter.png");
 
     Cam.w = CAM_WIDTH;
     Cam.h = CAM_HEIGHT;
@@ -109,7 +131,7 @@ void Character::Move(std::vector<Collision> MapColli)
 
     bool checkCharY = false;
 
-    for(int i = 0; i < MapColli.size(); i++)
+    for(int i = 0; i < (int)MapColli.size(); i++)
     {
     if(ColliChar.checkCollision(MapColli[i]))
         {
@@ -121,8 +143,6 @@ void Character::Move(std::vector<Collision> MapColli)
     {
         Position.y -= Velocity.y;
     }
-
-
 }
 
 
@@ -233,11 +253,9 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
 {
     Move(MapColli);
 
-    //std::cout << Health_Char << '\n';
-
     static int checkAttack = 0;
     static int checkDead = 0;
-    if(Health_Char == 0)
+    if(Health_Char <= 0)
     {
         checkDead++;
         LoadSpriteState(cntDEAD, DEAD, STATE_DEAD);
@@ -247,13 +265,13 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
             SDL_DestroyTexture(CharTex);
         }
     }
-else
-{
-    for(int i = 0; i < Enemy.size(); i++)
+    else
+    {
+    for(int i = 0; i < (int) Enemy.size(); i++)
     {
         if(Enemy[i]->attack_enemy == true)
     {
-      Health_Char -= 20;
+      Health_Char -= 10;
     }
     else
     {
@@ -272,9 +290,10 @@ else
         {
             if(cntATTACK == ATTACK - 1)
             {
-                Enemy[i]->Health -= 20;
+                Enemy[i]->HealthEnemy -= 1;
                 //std::cout << Enemy[i]->Health << '\n';
                 Enemy[i]->checkHealth = true;
+                if(Enemy[i]->HealthEnemy == 0) Exp_Char += 10;
             }
         }
     else
@@ -283,7 +302,12 @@ else
         }
     }
     }
-}
+
+    }
+
+    if(Health_Char <= 0 ) Health_Char = 0;
+
+
     Camera();
 
     srcRect.x  = Position.x - Cam.x;
@@ -292,10 +316,78 @@ else
     srcRect.w = CHAR_WIDTH * 2;
     srcRect.h = CHAR_HEIGHT * 2;
 
+
 }
+
 
 void Character::Render()
 {
+
+   {
+
+    TextureManager::Render(10, 10, 34, 30, IconHealth, NULL, 0, NULL, SDL_FLIP_NONE);
+
+    TextureManager::Render(50, 10, 206 / 10, 349 / 10, HealthHolderLeft, NULL, 0, NULL, SDL_FLIP_NONE);
+    for(int i = 10; i <= 90; i++)
+    {
+        TextureManager::Render(50 + 206 / 10 + (i - 10) * 22 / 11, 10, 220 / 100, 349 / 10, HealthHolderCenter, NULL, 0, NULL, SDL_FLIP_NONE);
+    }
+    TextureManager::Render(50 + 206 / 10 + 80 * 22 / 11, 10, 206 / 10, 349 / 10, HealthHolderRight, NULL, 0, NULL, SDL_FLIP_NONE);
+
+    TextureManager::Render(50, 10, 206 / 10, 349 / 10, HealthLeft, NULL, 0, NULL, SDL_FLIP_NONE);
+
+    for(int i = 10; i <= Health_Char - 10; i++)
+    {
+        TextureManager::Render(50 + 206 / 10 + (i - 10) * 22 / 11, 10, 22 / 10, 349 / 10, HealthCenter, NULL, 0, NULL, SDL_FLIP_NONE);
+    }
+
+    if(Health_Char == 100)
+    {
+        TextureManager::Render(50 + 206 / 10 + 80 * 22 / 11, 10, 206 / 10, 349 / 10, HealthRight, NULL, 0, NULL, SDL_FLIP_NONE);
+    }
+
+    }
+
+
+    {
+
+    TextureManager::Render(10, 40, 34, 30, IconExp, NULL, 0, NULL, SDL_FLIP_NONE);
+
+    TextureManager::Render(50, 40, 206 / 10, 349 / 10, ExpHolderLeft, NULL, 0, NULL, SDL_FLIP_NONE);
+    for(int i = 10; i <= 90; i++)
+    {
+        TextureManager::Render(50 + 206 / 10 + (i - 10) * 22 / 11, 40, 220 / 100, 349 / 10, ExpHolderCenter, NULL, 0, NULL, SDL_FLIP_NONE);
+    }
+    TextureManager::Render(50 + 206 / 10 + 80 * 22 / 11, 40, 206 / 10, 349 / 10, ExpHolderRight, NULL, 0, NULL, SDL_FLIP_NONE);
+
+    TextureManager::Render(50, 40, 206 / 10, 349 / 10, ExpLeft, NULL, 0, NULL, SDL_FLIP_NONE);
+
+    for(int i = 10; i <= Exp_Char - 10; i++)
+    {
+        TextureManager::Render(50 + 206 / 10 + (i - 10) * 22 / 11, 40, 22 / 10, 349 / 10, ExpCenter, NULL, 0, NULL, SDL_FLIP_NONE);
+    }
+
+    if(Exp_Char == 100)
+    {
+        TextureManager::Render(50 + 206 / 10 + 80 * 22 / 11, 40, 206 / 10, 349 / 10, ExpRight, NULL, 0, NULL, SDL_FLIP_NONE);
+    }
+
+    }
+    if(Exp_Char >= 100)
+    {   if(cntPath <= 3) cntPath++;
+        switch(cntPath)
+        {
+            case 2:
+                CharTex = TextureManager::LoadTexture("16x16 knight 2.png");
+                break;
+            case 3:
+                CharTex = TextureManager::LoadTexture("16x16 knight 3.png");
+        }
+
+        Exp_Char = 0;
+    }
+
+
     //SDL_RenderCopyEx(Game::Renderer, MapTex, &Cam, NULL, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
 }

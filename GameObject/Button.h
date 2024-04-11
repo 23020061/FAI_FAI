@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "Vector2D.h"
+#include <SDL_ttf.h>
 
 enum ButtonSprite
 {
@@ -34,11 +35,14 @@ private:
     ButtonSprite CurrentButton;
 
     SDL_Texture* TextureButton;
+    SDL_Texture* TextureText;
 
     SDL_Rect PosButton;
     SDL_Rect PosButton1;
     SDL_Rect PosButton2;
 
     bool check = false;
-
+    std::string text;
+    TTF_Font* gFont;
+    SDL_Rect TextButton;
 };

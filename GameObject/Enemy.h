@@ -30,7 +30,7 @@ public:
         return checkDead;
     }
 
-    float Health = 100;
+    float HealthEnemy = 5;
 
     Collision getColli()
     {

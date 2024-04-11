@@ -1,12 +1,11 @@
 #pragma once
-
 #include "Game.h"
 #include "Button.h"
+
 
 class MenuEnd
 {
 public:
-
     void handle(SDL_Event &e);
 
     void Update();
@@ -17,15 +16,26 @@ public:
 
     void Clear();
 
-    bool Exit()
+    bool InputReplay()
     {
-        return check;
+        return checkReplay;
     }
 
+    bool InputQuit()
+    {
+        return checkQuit;
+    }
 private:
+
     SDL_Texture* Background;
 
-    Button* Play;
+    Button* Replay;
+    Button* Quit;
 
-    bool check;
+    SDL_Texture* Table;
+    SDL_Texture* GameOver;
+
+    SDL_Rect textRect;
+
+    bool checkReplay, checkQuit;
 };

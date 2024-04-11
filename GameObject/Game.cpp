@@ -11,14 +11,15 @@
 #include "Collision.h"
 #include "Enemy.h"
 #include "GameEnd.h"
-
+#include "MenuEnd.h"
 
 SDL_Renderer* Game::Renderer = nullptr;
 
 Character* Player;
 std::vector <Enemy1*> Enemy;
 Uint8 CurrentState = Start;
-StateMachine* CurrentMachine = nullptr;
+StateMachine* Machine;
+
 Menu* menu;
 
 MenuEnd* MenuExit;
@@ -53,8 +54,7 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
 
     IsRunning = true;
 
-    CurrentMachine = new StateMachine();
-    CurrentMachine->Change(new GameStart());
+    //Machine = new Ingame();
     CurrentState = Start;
     menu = new Menu();
     menu->Init();
@@ -63,7 +63,7 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
     MenuExit->Init();
 
     MAP = new Map();
-    Player = new Character("16x16 knight 3.png", 1600, 1600);
+    Player = new Character("16x16 knight 1.png", 1600, 1600);
     Enemy.push_back(new Enemy1(400, 600));
 }
 
@@ -91,29 +91,34 @@ void Game::HandleEvents()
         MenuExit->handle(Event);
         break;
     }
-
-
-
-
 }
 
 void Game::Update()
 {
 
-    CurrentMachine->Update();
-    if(menu->Exit() == true)
-        {
-            CurrentMachine->Change(new Ingame());
+    if(menu->InputPlay() == true)
+    {
             CurrentState = In;
-        }
-
+            //MAP = new Map();
+            //Player = new Character("16x16 knight 1.png", 1600, 1600);
+            //Enemy.push_back(new Enemy1(400, 600));
+    }
+    if(menu->InputQuit() == true)
+    {
+        IsRunning = false;
+    }
     if(Player->Exit() == true)
     {
-        CurrentMachine->Change(new GameEnd());
         CurrentState = End;
     }
-
-
+    if(MenuExit->InputQuit() == true)
+    {
+        IsRunning = false;
+    }
+    if(MenuExit->InputReplay() == true)
+    {
+        CurrentState = Start;
+    }
 
     switch(CurrentState)
     {
@@ -122,20 +127,18 @@ void Game::Update()
         break;
         case In:
         Player->Update(MAP->HasCollision(), Enemy);
-        while(Enemy.size() < 20)
+        while(Enemy.size() < 40 )
         {
             int x, y;
             x = GetRandom(192, 2976);
             y = GetRandom(96, 3102);
             Enemy.push_back(new Enemy1(x, y));
-
         }
 
         for(int i = 0; i < Enemy.size(); i++)
         {
-                Enemy[i]->Update(Player->getPosChar(), Player->GetPositionCam());
+            Enemy[i]->Update(Player->getPosChar(), Player->GetPositionCam());
         }
-
         break;
         case End:
         MenuExit->Update();
@@ -150,7 +153,6 @@ void Game::Render()
 {
     SDL_RenderClear(Renderer);
 
-    CurrentMachine->Render();
     switch(CurrentState)
     {
         case Start:

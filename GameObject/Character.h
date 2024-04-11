@@ -29,7 +29,7 @@ const int CAM_HEIGHT = 800;
 class Character
 {
 public:
-    Character(const char* Path, int x, int y);
+    Character(const char* path, int x, int y);
 
     ~Character();
 
@@ -64,7 +64,7 @@ public:
         return check;
     }
 
-    int Health_Char = 200;
+    int Health_Char = 100;
 
 private:
 
@@ -75,6 +75,17 @@ private:
     SDL_Rect Cam;
     bool check = false;
 
+    SDL_Texture *HealthLeft, *HealthHolderLeft;
+    SDL_Texture *HealthRight, *HealthHolderRight;
+    SDL_Texture *HealthCenter, *HealthHolderCenter;
+    SDL_Texture *IconHealth;
 
+    SDL_Texture *ExpLeft, *ExpHolderLeft;
+    SDL_Texture *ExpRight, *ExpHolderRight;
+    SDL_Texture *ExpCenter, *ExpHolderCenter;
+    SDL_Texture *IconExp;
+
+    int Exp_Char = 0;
+    int cntPath = 1;
 };
 

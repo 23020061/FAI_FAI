@@ -17,17 +17,26 @@ public:
 
     void Clear();
 
-    bool Exit()
+    bool InputPlay()
     {
-        return check;
+        return checkPlay;
+    }
+
+    bool InputQuit()
+    {
+        return checkQuit;
     }
 
 private:
     SDL_Texture* Background;
 
     Button* Play;
+    Button* Quit;
 
+    SDL_Texture* Table;
     SDL_Texture* FAI_FAI;
+    SDL_Rect textRect;
 
-    bool check;
+
+    bool checkPlay, checkQuit;
 };

@@ -6,7 +6,11 @@ float Zoom = 1.25;
 
 Button::Button(std::string path, int x, int y, int w, int h)
 {
-    TextureButton = TextureManager::LoadTexture("play.png");
+    TextureButton = TextureManager::LoadTexture("Button.png");
+
+    text = path;
+    TTF_Init();
+    TextureText = TextureManager::LoadText("Robus-BWqOd.otf", text.c_str(), 50, gFont, TextButton);
 
     Position.x = x;
     Position.y = y;
@@ -81,14 +85,21 @@ void Button::Update()
     if(CurrentButton == BUTTON_SPRITE_MOUSE_IN)
     {
         PosButton = PosButton1;
+        TextureText = TextureManager::LoadText("Robus-BWqOd.otf", text.c_str(), 60, gFont, TextButton);
     }
     else
     {
         PosButton = PosButton2;
+        TextureText = TextureManager::LoadText("Robus-BWqOd.otf", text.c_str(), 50, gFont, TextButton);
+
     }
+
+    TextButton.x = Position.x + (PosButton2.w - TextButton.w) / 2;
+    TextButton.y = Position.y + (PosButton2.h - TextButton.h) / 2;
 }
 
 void Button::Render()
 {
     SDL_RenderCopyEx(Game::Renderer, TextureButton, NULL, &PosButton, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(Game::Renderer, TextureText, NULL, &TextButton, 0, NULL, SDL_FLIP_NONE);
 }

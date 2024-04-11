@@ -1,7 +1,7 @@
 #include "TextureManager.h"
 #include <SDL_ttf.h>
 
-SDL_Texture* TextureManager::LoadTexture(const char* FileName)
+SDL_Texture* TextureManager::LoadTexture(const char *FileName)
 {
 
     SDL_Surface* tempSurface = IMG_Load(FileName);
@@ -24,13 +24,18 @@ void TextureManager::Render( int x, int y, int mWidth, int mHeight, SDL_Texture*
 	SDL_RenderCopyEx( Game::Renderer, mTexture, clip, &renderQuad, angle, center, flip );
 }
 
-SDL_Texture* TextureManager::LoadText(const char* NameTTF, const char* Content, int size_font, TTF_Font* gFont)
+SDL_Texture* TextureManager::LoadText(const char* NameTTF, const char* Content, int size_font, TTF_Font* gFont, SDL_Rect& TextRect)
 {
      gFont = TTF_OpenFont(NameTTF, size_font);
 
-     SDL_Color textColor = {255, 155, 155};
+     SDL_Color textColor = {139, 0, 0};
 
      SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, Content, textColor);
+
+        TextRect.x = 0;
+        TextRect.y = 0;
+        TextRect.w = textSurface->w;
+        TextRect.h = textSurface->h;
 
      SDL_Texture* temp = SDL_CreateTextureFromSurface(Game::Renderer, textSurface);
 

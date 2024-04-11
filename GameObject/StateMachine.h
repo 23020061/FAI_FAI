@@ -11,7 +11,6 @@ public:
     void Push(GameState* TempState);
     void Change(GameState* TempState);
     void Popback();
-
     void Render();
     void Update();
 private:

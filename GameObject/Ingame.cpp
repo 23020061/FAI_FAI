@@ -3,6 +3,7 @@
 const std::string Ingame::GameIn = "InGame";
 bool Ingame::Start()
 {
+
     return true;
 }
 

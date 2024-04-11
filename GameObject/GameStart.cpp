@@ -4,11 +4,14 @@ const std::string GameStart::StartGame = "GameStart";
 
 bool GameStart::End()
 {
+
     return true;
 }
 
 bool GameStart::Start()
 {
+
+
     return true;
 }
 

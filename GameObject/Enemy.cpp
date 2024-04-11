@@ -85,7 +85,7 @@ void Enemy1::Move(Vector2D Target)
 
     //Health = (Target.x - PosEnemy.x);
 
-    if(Health > 0)
+    if(HealthEnemy > 0)
     {
         static int checkTakenDamage = 0;
         if(checkHealth == true)
@@ -142,7 +142,7 @@ void Enemy1::Move(Vector2D Target)
     }
     else
     {
-        if(Health <= 0)
+        if(HealthEnemy <= 0)
         {
             LoadSpriteState(cnt_Dead_1, Dead_1, Ene_Dead_1);
         a++;
