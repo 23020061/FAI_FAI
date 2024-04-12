@@ -31,6 +31,10 @@ Character::Character(const char* path,int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
 
+    Health_Char = 100;
+
+    check = false;
+
     Position.x = x;
     Position.y = y;
 
@@ -253,8 +257,7 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
 {
     Move(MapColli);
 
-    static int checkAttack = 0;
-    static int checkDead = 0;
+
     if(Health_Char <= 0)
     {
         checkDead++;
@@ -306,7 +309,6 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
     }
 
     if(Health_Char <= 0 ) Health_Char = 0;
-
 
     Camera();
 
@@ -390,4 +392,33 @@ void Character::Render()
 
     //SDL_RenderCopyEx(Game::Renderer, MapTex, &Cam, NULL, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
+}
+
+Character::~Character()
+{
+    SDL_DestroyTexture(CharTex);
+    delete CharTex;
+
+    SDL_DestroyTexture(HealthLeft);
+    SDL_DestroyTexture(HealthRight);
+    SDL_DestroyTexture(HealthCenter);
+    SDL_DestroyTexture(IconHealth);
+
+    SDL_DestroyTexture(HealthHolderCenter);
+    SDL_DestroyTexture(HealthHolderLeft);
+    SDL_DestroyTexture(HealthHolderRight);
+
+    delete HealthLeft, HealthRight, HealthCenter, IconHealth, HealthHolderCenter, HealthHolderLeft, HealthHolderRight;
+
+    SDL_DestroyTexture(ExpLeft);
+    SDL_DestroyTexture(ExpRight);
+    SDL_DestroyTexture(ExpCenter);
+    SDL_DestroyTexture(IconExp);
+
+    SDL_DestroyTexture(ExpHolderCenter);
+    SDL_DestroyTexture(ExpHolderLeft);
+    SDL_DestroyTexture(ExpHolderRight);
+
+    delete ExpLeft, ExpRight, ExpCenter, IconExp, ExpHolderCenter, ExpHolderLeft, ExpHolderRight;
+
 }

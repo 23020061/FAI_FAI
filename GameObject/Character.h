@@ -64,8 +64,6 @@ public:
         return check;
     }
 
-    int Health_Char = 100;
-
 private:
 
     Vector2D Position;
@@ -85,6 +83,9 @@ private:
     SDL_Texture *ExpCenter, *ExpHolderCenter;
     SDL_Texture *IconExp;
 
+    int Health_Char = 100;
+    int checkAttack = 0;
+    int checkDead = 0;
     int Exp_Char = 0;
     int cntPath = 1;
 };

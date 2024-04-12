@@ -7,6 +7,7 @@
 class Menu
 {
 public:
+
     void handle(SDL_Event &e);
 
     void Update();

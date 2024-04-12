@@ -44,6 +44,9 @@ Enemy1::Enemy1(int x, int y)
     }
 
 }
+Enemy1::~Enemy1()
+{
+}
 
 void Enemy1::LoadSpriteState(int& cntState, const int& State, const int& STATE)
 {
@@ -80,7 +83,7 @@ void Enemy1::Move(Vector2D Target)
 {
     VelEnemy.x = 0;
     VelEnemy.y = 0;
-    static int a = 0;
+
     Target.y += 32;
 
     //Health = (Target.x - PosEnemy.x);
@@ -160,11 +163,11 @@ void Enemy1::Move(Vector2D Target)
 void Enemy1::Render()
 {
     SDL_RenderCopyEx(Game::Renderer, EnemyTexture, &Current_Ene_1, &srcRect, 0, NULL, CheckEne_1);
-
 }
 
 void Enemy1::Destroy()
 {
     SDL_DestroyTexture(EnemyTexture);
+
     delete EnemyTexture;
 }

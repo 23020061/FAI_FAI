@@ -5,7 +5,8 @@ class GameState
 {
 public:
 
-    virtual void Update() = 0;
+    virtual void Handle(SDL_Event& e) = 0;
+    virtual void Update(int &CurrentState, int &checkChange) = 0;
     virtual void Render() = 0;
 
     virtual bool Start() = 0;

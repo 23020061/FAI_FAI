@@ -9,7 +9,9 @@ public:
 
     virtual bool Start();
     virtual bool End();
-    virtual void Update();
+
+    virtual void Handle(SDL_Event& e);
+    virtual void Update(int &CurrentState, int &checkChange);
     virtual void Render();
     virtual std::string getState() const
     {

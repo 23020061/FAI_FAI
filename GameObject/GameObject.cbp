@@ -58,6 +58,7 @@
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.h" />
 		<Unit filename="MenuEnd.cpp" />
+		<Unit filename="MenuEnd.h" />
 		<Unit filename="StateMachine.cpp" />
 		<Unit filename="StateMachine.h" />
 		<Unit filename="StateManager.h" />

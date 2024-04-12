@@ -49,6 +49,8 @@ class Map
 
     std::vector <Collision> HasCollision();
 
+    void Destroy();
+
   private:
 
     int TOTAL = 2;

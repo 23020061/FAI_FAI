@@ -2,6 +2,9 @@
 #include "StateMachine.h"
 #include "Ingame.h"
 #include "TextureManager.h"
+
+
+
 void Menu::Init()
 {
     Table = TextureManager::LoadTexture("Table.png");
@@ -12,6 +15,22 @@ void Menu::Init()
     TTF_Init();
     TTF_Font* NameFont;
     FAI_FAI = TextureManager::LoadText("Robus-BWqOd.otf", "FAI_FAI", 200, NameFont, textRect);
+}
+
+void Menu::Clear()
+{
+    //delete Play;
+    //delete Quit;
+
+    SDL_DestroyTexture(Table);
+    delete Table;
+
+    SDL_DestroyTexture(Background);
+    delete Background;
+
+    SDL_DestroyTexture(FAI_FAI);
+    delete FAI_FAI;
+
 }
 
 void Menu::Update()

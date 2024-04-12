@@ -94,7 +94,7 @@ Map::Map()
                     x = 0;
                 }
             }
-            std::cout << '\n';
+            //std::cout << '\n';
         }
     }
 }
@@ -139,3 +139,20 @@ std::vector <Collision> Map::HasCollision()
 {
     return SaveCollisionMap;
 }
+
+void Map::Destroy()
+{
+    SDL_DestroyTexture(Tex[0].Textile);
+    SDL_DestroyTexture(Tex[1].Textile);
+    while(IDhasCollision.size() > 0)
+    {
+        IDhasCollision.pop_back();
+    }
+
+    while(SaveCollisionMap.size() > 0)
+    {
+        SaveCollisionMap.pop_back();
+    }
+
+}
+

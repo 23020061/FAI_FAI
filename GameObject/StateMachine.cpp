@@ -44,7 +44,12 @@ void StateMachine::Render()
     Machine.back()->Render();
 }
 
-void StateMachine::Update()
+void StateMachine::Update(int &CurrentState, int &checkChange)
 {
-    Machine.back()->Update();
+    Machine.back()->Update(CurrentState, checkChange);
+}
+
+void StateMachine::Handle(SDL_Event &e)
+{
+    Machine.back()->Handle(e);
 }

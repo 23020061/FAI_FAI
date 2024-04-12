@@ -49,6 +49,8 @@ private:
     Collision* EnemyColli = new Collision(0, 0, 64, 64);
     bool checkDead = false;
 
+    int a = 0;
+
     enum
 {
     Ene_IDLE_1,

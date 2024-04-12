@@ -51,3 +51,13 @@ void MenuEnd::Render()
 
 }
 
+void MenuEnd::Clear()
+{
+    SDL_DestroyTexture(Background);
+    SDL_DestroyTexture(Table);
+    SDL_DestroyTexture(GameOver);
+
+    delete Background, Table, GameOver;
+
+}
+
