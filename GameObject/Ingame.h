@@ -2,6 +2,8 @@
 
 #include "Game.h"
 #include "GameState.h"
+#include "Map.h"
+#include "Character.h"
 
 class Ingame : public GameState
 {
@@ -20,4 +22,9 @@ public:
 private:
     static const std::string GameIn;
 
+    Map* MAP;
+
+    Character* Player;
+
+    std::vector <Enemy1*> Enemy;
 };

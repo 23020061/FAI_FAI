@@ -7,10 +7,10 @@
 
 enum Game_State
 {
-    StartG,
-    In,
-    EndG,
-    Quit
+    StartG = 0,
+    In = 1,
+    EndG = 2,
+    Quit = 3
 };
 
 class Game

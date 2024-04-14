@@ -8,7 +8,7 @@ void StateMachine::Push(GameState* TempState)
 
 void StateMachine::Popback()
 {
-    if(Machine.empty() == false)
+    if(!Machine.empty())
     {
         if(Machine.back()->End())
         {
@@ -29,7 +29,8 @@ void StateMachine::Change(GameState* TempState)
         else
         {
                 if(Machine.back()->End())
-                {delete Machine.back();
+                {
+                delete Machine.back();
                 Machine.pop_back();
                 }
         }

@@ -12,24 +12,12 @@
 #include "Enemy.h"
 #include "GameEnd.h"
 #include "MenuEnd.h"
-
 SDL_Renderer* Game::Renderer = nullptr;
-
 int CurrentState = StartG;
-
 StateMachine* Machine;
 int checkChange = 0;
-
-GameStart* Start_;
-GameEnd* End_;
-
-Game::Game()
-{
-}
-Game::~Game()
-{
-}
-
+Game::Game(){}
+Game::~Game(){}
 void Game::init(const char* title, int x, int y, int Width, int Height, bool FullScreen)
 {
     int flags = 0;
@@ -37,41 +25,36 @@ void Game::init(const char* title, int x, int y, int Width, int Height, bool Ful
     {
         flags = SDL_WINDOW_FULLSCREEN;
     }
-
     SDL_Init(SDL_INIT_EVERYTHING);
 
     Window = SDL_CreateWindow(title, x, y, Width, Height, flags);
 
     Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    SDL_SetRenderDrawColor(Renderer, 125, 200, 100, 255);
+    SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
     IsRunning = true;
 
-    Start_ = new GameStart();
-    End_ = new GameEnd();
-
     Machine = new StateMachine();
+
     Machine->Push( new GameStart());
+
     CurrentState = StartG;
-
 }
-
 void Game::HandleEvents()
 {
     SDL_Event Event;
-
     SDL_PollEvent( &Event );
 
     switch(Event.type)
     {
         case SDL_QUIT:
             IsRunning = false;
+            SDL_DestroyWindow(Window);
             break;
     }
     Machine->Handle(Event);
 }
-
 void Game::Update()
 {
     checkChange = 0;
@@ -81,18 +64,19 @@ void Game::Update()
         switch(CurrentState)
          {
     case StartG:
-        Machine->Change(Start_);
+        Machine->Popback();
+        Machine->Push(new GameStart());
         break;
     case In:
-        Machine->Change(new Ingame());
+        Machine->Popback();
+        Machine->Push(new Ingame());
         break;
     case EndG:
-        Machine->Change(End_);
+        Machine->Popback();
+        Machine->Push(new GameEnd());
         break;
     case Quit:
         IsRunning = false;
-        break;
-    default:
         break;
         }
     }
@@ -109,9 +93,17 @@ void Game::Render()
 
 void Game::Clean()
 {
-    SDL_DestroyWindow(Window);
 
-    SDL_DestroyRenderer(Renderer);
+SDL_DestroyWindow(Window);
+
+SDL_DestroyRenderer(Renderer);
+
+while(Machine != NULL)
+    {
+        Machine->Popback();
+    }
+
+    delete Machine;
 
     SDL_Quit();
 }

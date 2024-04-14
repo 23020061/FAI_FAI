@@ -18,10 +18,11 @@ SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
 
-const float CHARACTER_VEL = 4;
+const float CHARACTER_VEL = 5;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
+
 
 Collision ColliChar(1600 + 54, 1600 + 58, 25 * 2, 19 * 2);
 
@@ -107,7 +108,13 @@ Character::Character(const char* path,int x, int y)
     }
 }
 
-void Character::Move(std::vector<Collision> MapColli)
+Collision Character::GetColli()
+{
+    return ColliChar;
+}
+
+
+void Character::Move(const std::vector<Collision> &MapColli)
 {
     Position.x += Velocity.x;
     ColliChar.UpdateX(Position.x + 54);
@@ -118,8 +125,6 @@ void Character::Move(std::vector<Collision> MapColli)
        if(ColliChar.checkCollision(MapColli[i]) == true && checkCharX == false)
         {
             checkCharX = true;
-            //std::cout << '(' << MapColli[i].getCollisionBox().x << ';'<< MapColli[i].getCollisionBox().y << ')' << '\n';
-            //std::cout << Position.x << ' ' << Position.y << '\n';
             break;
         }
     }
@@ -140,7 +145,6 @@ void Character::Move(std::vector<Collision> MapColli)
     if(ColliChar.checkCollision(MapColli[i]))
         {
             checkCharY = true;
-            //break;
         }
     }
     if((Position.y < 0) || (Position.y > MAP_HEIGHT - CHAR_HEIGHT * 2) || checkCharY == true)
@@ -178,7 +182,6 @@ void Character::InputHandle(SDL_Event& event)
         Velocity.x = 0;
         Velocity.y = 0;
 
-        SDL_PumpEvents();
     if(Health_Char != 0)
     {
             if(CurrentKeyState[SDL_SCANCODE_J])
@@ -253,7 +256,7 @@ void Character::Camera()
     }
 }
 
-void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> Enemy)
+void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy)
 {
     Move(MapColli);
 
@@ -262,6 +265,7 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
     {
         checkDead++;
         LoadSpriteState(cntDEAD, DEAD, STATE_DEAD);
+        SDL_Delay(100);
         if(checkDead == DEAD)
         {
             check = true;
@@ -280,17 +284,23 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
     {
         if(Check == SDL_FLIP_NONE)
         {
-            Knight.UpdateX(ColliChar.getCollisionBox().x - 2 * 2);
-            Knight.UpdateY(ColliChar.getCollisionBox().y - 28 * 2);
+            Knight.UpdateX(Position.x + 40 * 2);
+            Knight.UpdateY(Position.y + 19 * 2);
+            Knight.UpdateW(22 * 2);
+            Knight.UpdateH(29 * 2);
         }
         if( Check == SDL_FLIP_HORIZONTAL )
         {
-            Knight.UpdateX(ColliChar.getCollisionBox().x - 35 * 2);
-            Knight.UpdateY(ColliChar.getCollisionBox().y - 28 * 2);
+            Knight.UpdateX(Position.x + 3 * 2);
+            Knight.UpdateY(Position.y + 19 * 2);
+            Knight.UpdateW(22 * 2);
+            Knight.UpdateH(29 * 2);
         }
 
         if(CurrentKeyState[SDL_SCANCODE_J] && Knight.checkCollision(Enemy[i]->getColli()) == true)
         {
+            //std::cout << Position.x << ";" << Position.y << '\n';
+            //std::cout << Knight.getCollisionBox().x << ";" << Knight.getCollisionBox().y << ' ' << Knight.getCollisionBox().w << ";" << Knight.getCollisionBox().h << '\n';
             if(cntATTACK == ATTACK - 1)
             {
                 Enemy[i]->HealthEnemy -= 1;
@@ -317,7 +327,6 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> En
 
     srcRect.w = CHAR_WIDTH * 2;
     srcRect.h = CHAR_HEIGHT * 2;
-
 
 }
 

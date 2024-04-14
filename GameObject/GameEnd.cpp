@@ -13,6 +13,7 @@ bool GameEnd::Start()
 bool GameEnd::End()
 {
     MenuExit->Clear();
+    delete MenuExit;
     return true;
 }
 

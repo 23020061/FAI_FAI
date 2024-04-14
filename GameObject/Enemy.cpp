@@ -10,7 +10,9 @@ Enemy1::Enemy1(int x, int y)
     PosEnemy.y = y;
 
     EnemyColli->UpdateX(PosEnemy.x);
-    EnemyColli->UpdateY(PosEnemy.y);
+    EnemyColli->UpdateY(PosEnemy.y + 40 * 2);
+    EnemyColli->UpdateH(24 * 2);
+    EnemyColli->UpdateW(64 * 2);
 
     EnemyTexture = TextureManager::LoadTexture("Massacre Sprite Sheet.png");
 
@@ -46,11 +48,14 @@ Enemy1::Enemy1(int x, int y)
 }
 Enemy1::~Enemy1()
 {
+    SDL_DestroyTexture(EnemyTexture);
+    delete EnemyColli;
+    delete EnemyTexture;
 }
 
 void Enemy1::LoadSpriteState(int& cntState, const int& State, const int& STATE)
 {
-    int temp;
+    int temp = 0;
     temp = cntState;
     cnt_IDLE_1 = 0;
     cnt_MoveAndAttack_1 = 0;
@@ -62,16 +67,17 @@ void Enemy1::LoadSpriteState(int& cntState, const int& State, const int& STATE)
     Current_Ene_1 = Sprite_1[STATE][cntState];
 }
 
-
-void Enemy1::Update(Vector2D Target, SDL_Rect Camera)
+void Enemy1::Update(Vector2D Target, Collision temp, SDL_Rect Camera)
 {
-    Move(Target);
+    Move(Target, temp);
 
     PosEnemy.x += VelEnemy.x;
     PosEnemy.y += VelEnemy.y;
 
     EnemyColli->UpdateX(PosEnemy.x);
-    EnemyColli->UpdateY(PosEnemy.y);
+    EnemyColli->UpdateY(PosEnemy.y + 40);
+    EnemyColli->UpdateH(24);
+    EnemyColli->UpdateW(64);
 
     srcRect.x = PosEnemy.x - Camera.x;
     srcRect.y = PosEnemy.y - Camera.y;
@@ -79,13 +85,13 @@ void Enemy1::Update(Vector2D Target, SDL_Rect Camera)
     srcRect.h = ENE_HEIGHT;
 }
 
-void Enemy1::Move(Vector2D Target)
+void Enemy1::Move(Vector2D Target, Collision temp)
 {
     VelEnemy.x = 0;
     VelEnemy.y = 0;
 
     Target.y += 32;
-
+    Target.x += 32;
     //Health = (Target.x - PosEnemy.x);
 
     if(HealthEnemy > 0)
@@ -103,10 +109,14 @@ void Enemy1::Move(Vector2D Target)
         }
     else
     {
-        if(Target.x == PosEnemy.x && Target.y == PosEnemy.y )
+        temp.UpdateH(19 * 2);
+        temp.UpdateW(12 * 2);
+        temp.UpdateX(Target.x - 32 + 25 * 2);
+        temp.UpdateY(Target.y - 32 + 29 * 2);
+        if(EnemyColli->checkCollision(temp) == true)
         {
             attack_enemy = true;
-            //LoadSpriteState(cnt_IDLE_1, IDLE_1, Ene_IDLE_1);
+            LoadSpriteState(cnt_IDLE_1, IDLE_1, Ene_IDLE_1);
         }
         else
         {
@@ -148,8 +158,8 @@ void Enemy1::Move(Vector2D Target)
         if(HealthEnemy <= 0)
         {
             LoadSpriteState(cnt_Dead_1, Dead_1, Ene_Dead_1);
-        a++;
-        if(a == Dead_1)
+            a++;
+            if(a == Dead_1)
         {
             Destroy();
             a = 0;
@@ -158,7 +168,6 @@ void Enemy1::Move(Vector2D Target)
         }
     }
 }
-
 
 void Enemy1::Render()
 {
@@ -169,5 +178,6 @@ void Enemy1::Destroy()
 {
     SDL_DestroyTexture(EnemyTexture);
 
+    delete EnemyColli;
     delete EnemyTexture;
 }

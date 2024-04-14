@@ -29,13 +29,13 @@ void GameStart::Update(int &CurrentState, int &checkChange)
         menu->Update();
         if(menu->InputPlay() == true)
         {
-            //End();
+            End();
             CurrentState = In;
             checkChange = 1;
         }
-        if(menu->InputQuit() == true)
+        else if(menu->InputQuit() == true)
         {
-            //End();
+            End();
             CurrentState = Quit;
             checkChange = 1;
         }

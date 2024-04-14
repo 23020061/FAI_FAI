@@ -61,7 +61,6 @@
 		<Unit filename="MenuEnd.h" />
 		<Unit filename="StateMachine.cpp" />
 		<Unit filename="StateMachine.h" />
-		<Unit filename="StateManager.h" />
 		<Unit filename="TextureManager.cpp" />
 		<Unit filename="TextureManager.h" />
 		<Unit filename="Vector2D.cpp" />

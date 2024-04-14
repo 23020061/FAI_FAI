@@ -58,6 +58,8 @@ void MenuEnd::Clear()
     SDL_DestroyTexture(GameOver);
 
     delete Background, Table, GameOver;
+    delete Replay;
+    delete Quit;
 
 }
 

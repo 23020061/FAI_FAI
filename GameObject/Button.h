@@ -6,9 +6,9 @@
 
 enum ButtonSprite
 {
-    BUTTON_SPRITE_MOUSE_OUT,
-    BUTTON_SPRITE_MOUSE_IN,
-    BUTTON_SPRITE_MOUSE_TOTAL
+    BUTTON_SPRITE_MOUSE_OUT = 0,
+    BUTTON_SPRITE_MOUSE_IN = 1,
+    BUTTON_SPRITE_MOUSE_TOTAL = 2
 };
 
 class Button
@@ -42,7 +42,7 @@ private:
     SDL_Rect PosButton2;
 
     bool check = false;
-    std::string text;
-    TTF_Font* gFont;
+    std::string text = "";
+    TTF_Font* gFont = NULL;
     SDL_Rect TextButton;
 };

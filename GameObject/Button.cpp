@@ -26,14 +26,13 @@ Button::Button(std::string path, int x, int y, int w, int h)
     PosButton1.h = h * Zoom;
 
     PosButton = PosButton2;
-
 }
 
 void Button::handleEvent(SDL_Event& e)
 {
 	if( e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP )
     {
-        int x, y;
+        int x = 0, y = 0;
         SDL_GetMouseState(&x, &y);
 
         bool inside = true;
@@ -42,7 +41,6 @@ void Button::handleEvent(SDL_Event& e)
 		{
 			inside = false;
 		}
-		//Mouse is right of the button
 		else if( x > Position.x + PosButton.w )
 		{
 			inside = false;
@@ -62,7 +60,6 @@ void Button::handleEvent(SDL_Event& e)
 		}
 		else
 		{
-			//Set mouse over sprite
 			switch( e.type )
 			{
 				case SDL_MOUSEMOTION:
@@ -78,6 +75,19 @@ void Button::handleEvent(SDL_Event& e)
 			}
 		}
     }
+}
+
+Button::~Button()
+{
+    SDL_DestroyTexture(TextureText);
+    delete TextureText;
+
+    SDL_DestroyTexture(TextureButton);
+    delete TextureButton;
+
+    TTF_Quit();
+    //TTF_CloseFont(gFont);
+    //delete gFont;
 }
 
 void Button::Update()

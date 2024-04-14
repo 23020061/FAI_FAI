@@ -3,8 +3,12 @@
 #include "Game.h"
 #include "Collision.h"
 #include "bits/stdc++.h"
-struct TextureTile;
-
+struct TextureTile
+{
+    SDL_Texture* Textile;
+    int firstID;
+    SDL_Rect TileClip[1000];
+};
 class Tile
 {
 public:
@@ -30,18 +34,15 @@ private:
 
 };
 
-struct TextureTile
-{
-    SDL_Texture* Textile;
-    int firstID;
-    SDL_Rect TileClip[1000];
-};
+
 
 class Map
 {
   public:
 
     Map();
+
+    ~Map();
 
     void UpdateTile(TextureTile &tmp);
 

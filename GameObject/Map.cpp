@@ -99,6 +99,10 @@ Map::Map()
     }
 }
 
+Map::~Map()
+{
+}
+
 void Map::UpdateTile(TextureTile &tmp)
 {
     int width = 0, height = 0;
@@ -143,7 +147,9 @@ std::vector <Collision> Map::HasCollision()
 void Map::Destroy()
 {
     SDL_DestroyTexture(Tex[0].Textile);
+    delete Tex[0].Textile;
     SDL_DestroyTexture(Tex[1].Textile);
+    delete Tex[1].Textile;
     while(IDhasCollision.size() > 0)
     {
         IDhasCollision.pop_back();
@@ -154,5 +160,13 @@ void Map::Destroy()
         SaveCollisionMap.pop_back();
     }
 
+      for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < Rect_Height; j++)
+        {
+                delete []TileSprite[i][j];
+        }
+
+    }
 }
 

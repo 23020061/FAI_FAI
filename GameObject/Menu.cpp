@@ -21,7 +21,6 @@ void Menu::Clear()
 {
     //delete Play;
     //delete Quit;
-
     SDL_DestroyTexture(Table);
     delete Table;
 

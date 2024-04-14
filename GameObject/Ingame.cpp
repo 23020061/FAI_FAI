@@ -6,11 +6,11 @@
 
 const std::string Ingame::GameIn = "InGame";
 
-Character* Player;
 
-std::vector <Enemy1*> Enemy;
 
-Map* MAP;
+
+
+
 
 int GetRandom(int min, int max)
 {
@@ -26,14 +26,17 @@ bool Ingame::Start()
 
 bool Ingame::End()
 {
-
     delete Player;
     while(Enemy.size() > 0)
     {
         delete Enemy.back();
         Enemy.pop_back();
     }
+
+    Enemy.clear();
+
     MAP->Destroy();
+    //delete MAP;
     return true;
 }
 
@@ -50,7 +53,7 @@ void Ingame::Update(int &CurrentState, int &checkChange)
 
         for(int i = 0; i < Enemy.size(); i++)
         {
-            Enemy[i]->Update(Player->getPosChar(), Player->GetPositionCam());
+            Enemy[i]->Update(Player->getPosChar(), Player->GetColli(), Player->GetPositionCam());
             if(Enemy[i]->HealthEnemy <= 0)
             {
                 delete Enemy[i];
@@ -72,12 +75,14 @@ void Ingame::Render()
 {
         MAP->Render(Player->GetPositionCam());
 
-        Player->Render();
-
         for(int i = 0; i < Enemy.size(); i++)
         {
             Enemy[i]->Render();
         }
+
+        Player->Render();
+
+
 
 }
 
