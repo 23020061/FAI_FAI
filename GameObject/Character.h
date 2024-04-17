@@ -45,7 +45,7 @@ public:
 
     void Camera();
 
-    void Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy);
+    void Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy, std::vector<Enemy2*> &EnemyOther);
 
     void Render();
 
@@ -73,6 +73,7 @@ private:
     SDL_Rect srcRect;
     SDL_Rect Cam;
     bool check = false;
+    bool checkOther = false;
 
     SDL_Texture *HealthLeft, *HealthHolderLeft;
     SDL_Texture *HealthRight, *HealthHolderRight;
@@ -87,6 +88,7 @@ private:
 
     int Health_Char = 100;
     int checkAttack = 0;
+    int checkAttackOther = 0;
     int checkDead = 0;
     int Exp_Char = 0;
     int cntPath = 1;

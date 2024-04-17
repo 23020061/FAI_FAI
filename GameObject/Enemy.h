@@ -41,6 +41,7 @@ public:
 
     bool attack_enemy = false;
 
+    bool checkDead = false;
 
         enum
 {
@@ -68,7 +69,6 @@ private:
     SDL_Rect srcRect;
 
     Collision* EnemyColli = new Collision(0, 0, 64, 64);
-    bool checkDead = false;
 
     int a = 0;
 
@@ -79,7 +79,65 @@ class Enemy2
 {
 public:
 
-//new
+    Enemy2(int x, int y );
 
+    ~Enemy2();
 
+    void LoadSpriteState(int& cntState, const int& State, const int& STATE);
+
+    void Move(Vector2D Target, Collision temp, int x, int y);
+
+    void Update(Vector2D Target, Collision temp, SDL_Rect Camera);
+
+    void Render();
+
+    void Destroy();
+
+    float HealthEnemy = 20;
+
+    bool checkHealth = false;
+
+    bool attack_enemy = false;
+
+    bool attack_ = false;
+
+    Collision getColli()
+    {
+        return *EnemyColli;
+    }
+
+        bool IsDestroy()
+    {
+        return checkDead;
+    }
+    bool checkDead = false;
+
+    int Move_1 = 7, cnt_Move_1 = 0,
+    Attack_1 = 38, cnt_Attack_1 = 0,
+    Dead_1 = 24, cnt_Dead_1 = 0;
+
+enum
+{
+    Ene_Move_1 = 0,
+    Ene_Attack_1 = 1,
+    Ene_Dead_1 = 2,
+    Ene_Total_1 = 3
+};
+
+    SDL_Rect Sprite_1[Ene_Total_1][38];
+    SDL_Rect Current_Ene_1;
+    SDL_RendererFlip CheckEne_1 = SDL_FLIP_NONE;
+
+private:
+
+    Vector2D PosEnemy;
+    Vector2D VelEnemy;
+    Vector2D previousPosCha;
+
+    SDL_Texture* EnemyTexture;
+    SDL_Rect srcRect;
+
+    Collision *EnemyColli = new Collision(0, 0, 64, 64);
+
+    int a = 0;
 };

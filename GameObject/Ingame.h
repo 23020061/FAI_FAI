@@ -26,5 +26,7 @@ private:
 
     Character* Player;
 
-    std::vector <Enemy1*> Enemy;
+    std::vector <Enemy1*> Enemy1_;
+
+    std::vector <Enemy2*> Enemy2_;
 };

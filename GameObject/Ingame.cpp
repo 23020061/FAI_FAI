@@ -6,34 +6,41 @@
 
 const std::string Ingame::GameIn = "InGame";
 
-
-
-
-
-
-
 int GetRandom(int min, int max)
 {
     return min + (int)(rand() * (max - min + 1.0) / (1.0 + RAND_MAX));
 }
+
 bool Ingame::Start()
 {
     MAP = new Map();
     Player = new Character("16x16 knight 1.png", 1600, 1600);
-    Enemy.push_back(new Enemy1(400, 600));
+
+    //Enemy1_.push_back(new Enemy1(GetRandom(192, 2976), GetRandom(96, 3102)));
+
+    Enemy2_.push_back(new Enemy2(GetRandom(192, 2976), GetRandom(96, 3102)));
+
     return true;
 }
 
 bool Ingame::End()
 {
     delete Player;
-    while(Enemy.size() > 0)
+    while(Enemy1_.size() > 0)
     {
-        delete Enemy.back();
-        Enemy.pop_back();
+        delete Enemy1_.back();
+        Enemy1_.pop_back();
     }
 
-    Enemy.clear();
+    Enemy1_.clear();
+
+        while(Enemy2_.size() > 0)
+    {
+        delete Enemy2_.back();
+        Enemy2_.pop_back();
+    }
+
+    Enemy1_.clear();
 
     MAP->Destroy();
     //delete MAP;
@@ -42,22 +49,42 @@ bool Ingame::End()
 
 void Ingame::Update(int &CurrentState, int &checkChange)
 {
-        Player->Update(MAP->HasCollision(), Enemy);
-        while(Enemy.size() < 40 )
+        Player->Update(MAP->HasCollision(), Enemy1_, Enemy2_);
+
+        while(Enemy1_.size() < 0 )
         {
             int x, y;
             x = GetRandom(192, 2976);
             y = GetRandom(96, 3102);
-            Enemy.push_back(new Enemy1(x, y));
+            Enemy1_.push_back(new Enemy1(x, y));
         }
 
-        for(int i = 0; i < Enemy.size(); i++)
+        for(int i = 0; i < Enemy1_.size(); i++)
         {
-            Enemy[i]->Update(Player->getPosChar(), Player->GetColli(), Player->GetPositionCam());
-            if(Enemy[i]->HealthEnemy <= 0)
+            Enemy1_[i]->Update(Player->getPosChar(), Player->GetColli(), Player->GetPositionCam());
+            if( Enemy1_[i]->checkDead == true)
             {
-                delete Enemy[i];
-                Enemy.erase(Enemy.begin() + i);
+                delete Enemy1_[i];
+                Enemy1_.erase(Enemy1_.begin() + i);
+                i--;
+            }
+        }
+
+                while(Enemy2_.size() <= 1)
+        {
+            int x, y;
+            x = GetRandom(192, 2976);
+            y = GetRandom(96, 3102);
+            Enemy2_.push_back(new Enemy2(x, y));
+        }
+
+        for(int i = 0; i < Enemy2_.size(); i++)
+        {
+            Enemy2_[i]->Update(Player->getPosChar(), Player->GetColli(), Player->GetPositionCam());
+            if( Enemy2_[i]->checkDead == true)
+            {
+                delete Enemy2_[i];
+                Enemy2_.erase(Enemy2_.begin() + i);
                 i--;
             }
         }
@@ -75,9 +102,15 @@ void Ingame::Render()
 {
         MAP->Render(Player->GetPositionCam());
 
-        for(int i = 0; i < Enemy.size(); i++)
+        for(int i = 0; i < Enemy1_.size(); i++)
         {
-            Enemy[i]->Render();
+            Enemy1_[i]->Render();
+        }
+
+
+        for(int i = 0; i < Enemy2_.size(); i++)
+        {
+            Enemy2_[i]->Render();
         }
 
         Player->Render();
