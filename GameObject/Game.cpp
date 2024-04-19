@@ -64,22 +64,20 @@ void Game::Update()
         switch(CurrentState)
          {
     case StartG:
-        Machine->Popback();
-        Machine->Push(new GameStart());
+        Machine->Change(new GameStart());
         break;
     case In:
-        Machine->Popback();
-        Machine->Push(new Ingame());
+        Machine->Change(new Ingame());
         break;
     case EndG:
-        Machine->Popback();
-        Machine->Push(new GameEnd());
+        Machine->Change(new GameEnd());
         break;
     case Quit:
         IsRunning = false;
         break;
         }
     }
+
 }
 
 void Game::Render()

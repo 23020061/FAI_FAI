@@ -157,8 +157,8 @@ void Enemy1::Move(Vector2D Target, Collision temp)
     }
     else
     {
-        //if(HealthEnemy <= 0)
-            LoadSpriteState(cnt_Dead_1, Dead_1, Ene_Dead_1);
+        if(HealthEnemy <= 0)
+            {LoadSpriteState(cnt_Dead_1, Dead_1, Ene_Dead_1);
             a++;
             if(a == Dead_1)
         {
@@ -166,6 +166,7 @@ void Enemy1::Move(Vector2D Target, Collision temp)
             a = 0;
             checkDead = true;
         }
+            }
 
     }
 }

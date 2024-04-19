@@ -5,6 +5,7 @@
 #include "Collision.h"
 #include "bits/stdc++.h"
 #include "Enemy.h"
+#include <SDL_ttf.h>
 
 enum
 {
@@ -73,7 +74,12 @@ private:
     SDL_Rect srcRect;
     SDL_Rect Cam;
     bool check = false;
-    bool checkOther = false;
+    bool CoolDownAttack = false;
+    Uint32 CurrentTime = SDL_GetTicks();
+    SDL_Texture* TimeCoolDownAttack;
+    SDL_Rect TextAttack;
+
+
 
     SDL_Texture *HealthLeft, *HealthHolderLeft;
     SDL_Texture *HealthRight, *HealthHolderRight;
@@ -85,7 +91,7 @@ private:
     SDL_Texture *ExpCenter, *ExpHolderCenter;
     SDL_Texture *IconExp;
 
-
+    TTF_Font* TimeFont;
     int Health_Char = 100;
     int checkAttack = 0;
     int checkAttackOther = 0;

@@ -27,11 +27,18 @@ Collision ColliChar(1600 + 54, 1600 + 58, 25 * 2, 19 * 2);
 
 Collision Knight(ColliChar.getCollisionBox().x - 35 * 2, ColliChar.getCollisionBox().y - 28 * 2,  27 * 2, 21 * 2);
 
+
+
+
 Character::Character(const char* path,int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
 
     Health_Char = 100;
+
+    TTF_Init();
+
+
 
     check = false;
 
@@ -183,12 +190,26 @@ void Character::InputHandle(SDL_Event& event)
 {
         Velocity.x = 0;
         Velocity.y = 0;
+        Uint32 StartTime = SDL_GetTicks();
 
     if(Health_Char != 0)
     {
-            if(CurrentKeyState[SDL_SCANCODE_J])
+
+            if(CurrentKeyState[SDL_SCANCODE_J] && StartTime - CurrentTime >= 1000  )
         {
-            LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
+            std::string tempTime = std::to_string(StartTime - CurrentTime);
+            TimeCoolDownAttack = TextureManager::LoadText("Robus-BWqOd.otf", tempTime.c_str(), 100, TimeFont, TextAttack);
+            if(StartTime - CurrentTime >= 1000 || CoolDownAttack == true)
+            {
+                LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
+                CoolDownAttack = true;
+
+                if(cntATTACK == 0)
+                {
+                    CurrentTime = StartTime;
+                    CoolDownAttack = false;
+                }
+            }
         }
         else if(CurrentKeyState[SDL_SCANCODE_K])
         {
@@ -356,6 +377,8 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
 
 void Character::Render()
 {
+    TextureManager::Render(TextAttack.x, TextAttack.y, TextAttack.w, TextAttack.h, TimeCoolDownAttack, NULL, 0, NULL, SDL_FLIP_NONE);
+
 
    {
     TextureManager::Render(10, 10, 34, 30, IconHealth, NULL, 0, NULL, SDL_FLIP_NONE);
@@ -428,6 +451,10 @@ Character::~Character()
 {
     SDL_DestroyTexture(CharTex);
     delete CharTex;
+
+    SDL_DestroyTexture(TimeCoolDownAttack);
+    delete TimeCoolDownAttack;
+    TTF_Quit();
 
     SDL_DestroyTexture(HealthLeft);
     SDL_DestroyTexture(HealthRight);

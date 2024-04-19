@@ -16,7 +16,7 @@ bool Ingame::Start()
     MAP = new Map();
     Player = new Character("16x16 knight 1.png", 1600, 1600);
 
-    //Enemy1_.push_back(new Enemy1(GetRandom(192, 2976), GetRandom(96, 3102)));
+    Enemy1_.push_back(new Enemy1(GetRandom(192, 2976), GetRandom(96, 3102)));
 
     Enemy2_.push_back(new Enemy2(GetRandom(192, 2976), GetRandom(96, 3102)));
 
@@ -51,13 +51,13 @@ void Ingame::Update(int &CurrentState, int &checkChange)
 {
         Player->Update(MAP->HasCollision(), Enemy1_, Enemy2_);
 
-        while(Enemy1_.size() < 0 )
+        while(Enemy1_.size() <= 1 )
         {
-            int x, y;
-            x = GetRandom(192, 2976);
-            y = GetRandom(96, 3102);
+           int x, y;
+        x = GetRandom(192, 2976);
+           y = GetRandom(96, 3102);
             Enemy1_.push_back(new Enemy1(x, y));
-        }
+       }
 
         for(int i = 0; i < Enemy1_.size(); i++)
         {
@@ -70,7 +70,7 @@ void Ingame::Update(int &CurrentState, int &checkChange)
             }
         }
 
-                while(Enemy2_.size() <= 1)
+                while(Enemy2_.size() < 1)
         {
             int x, y;
             x = GetRandom(192, 2976);
