@@ -65,8 +65,17 @@ public:
         return check;
     }
 
+    bool EnterP()
+    {
+    return checkP;
+    }
     Collision GetColli();
 private:
+
+    SDL_Texture* TimeCoolDownAttack;
+    SDL_Rect TimeAttack;
+    SDL_Texture* ButtonAttack;
+
 
     Vector2D Position;
     Vector2D Velocity;
@@ -76,9 +85,6 @@ private:
     bool check = false;
     bool CoolDownAttack = false;
     Uint32 CurrentTime = SDL_GetTicks();
-    SDL_Texture* TimeCoolDownAttack;
-    SDL_Rect TextAttack;
-
 
 
     SDL_Texture *HealthLeft, *HealthHolderLeft;
@@ -91,12 +97,13 @@ private:
     SDL_Texture *ExpCenter, *ExpHolderCenter;
     SDL_Texture *IconExp;
 
-    TTF_Font* TimeFont;
     int Health_Char = 100;
     int checkAttack = 0;
     int checkAttackOther = 0;
     int checkDead = 0;
     int Exp_Char = 0;
     int cntPath = 1;
+
+    bool checkP = false;
 };
 

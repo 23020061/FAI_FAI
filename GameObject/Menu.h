@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "Button.h"
+#include <SDL_mixer.h>
 
 class Menu
 {
@@ -38,6 +39,7 @@ private:
     SDL_Texture* FAI_FAI;
     SDL_Rect textRect;
 
+    Mix_Music* MusicStart = NULL;
 
     bool checkPlay, checkQuit;
 };

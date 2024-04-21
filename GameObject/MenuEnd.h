@@ -1,7 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "Button.h"
-
+#include <SDL_mixer.h>
 
 class MenuEnd
 {
@@ -36,6 +36,8 @@ private:
     SDL_Texture* GameOver;
 
     SDL_Rect textRect;
+
+    Mix_Music* MusicEnd = NULL;
 
     bool checkReplay, checkQuit;
 };

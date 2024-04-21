@@ -12,6 +12,9 @@
 #include "Enemy.h"
 #include "GameEnd.h"
 #include "MenuEnd.h"
+#include "GamePause.h"
+
+
 SDL_Renderer* Game::Renderer = nullptr;
 int CurrentState = StartG;
 StateMachine* Machine;
@@ -59,6 +62,7 @@ void Game::Update()
 {
     checkChange = 0;
     Machine->Update(CurrentState, checkChange);
+
     if(checkChange != 0)
     {
         switch(CurrentState)
@@ -72,11 +76,15 @@ void Game::Update()
     case EndG:
         Machine->Change(new GameEnd());
         break;
+    case PauseG:
+        Machine->Push(new GamePause());
+
     case Quit:
         IsRunning = false;
         break;
         }
     }
+
 
 }
 

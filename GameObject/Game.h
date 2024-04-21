@@ -10,7 +10,8 @@ enum Game_State
     StartG = 0,
     In = 1,
     EndG = 2,
-    Quit = 3
+    PauseG = 3,
+    Quit = 4
 };
 
 class Game

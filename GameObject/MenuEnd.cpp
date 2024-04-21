@@ -7,6 +7,10 @@ void MenuEnd::Init()
     Replay = new Button("Replay", 640 - 150 / 2, 420 - 60 / 2, 150, 60);
     Quit = new Button("Quit", 640 - 150 / 2, 420 - 60 / 2 + 70, 150, 60);
 
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    MusicEnd = Mix_LoadMUS("13-Flap.mp3");
+    Mix_PlayMusic(MusicEnd, -1);
+
     Background = TextureManager::LoadTexture("5.png");
     TTF_Init();
     TTF_Font* NameFont;
@@ -56,6 +60,9 @@ void MenuEnd::Clear()
     SDL_DestroyTexture(Background);
     SDL_DestroyTexture(Table);
     SDL_DestroyTexture(GameOver);
+    Mix_FreeMusic(MusicEnd);
+    MusicEnd = NULL;
+    Mix_Quit();
 
     delete Background, Table, GameOver;
     delete Replay;

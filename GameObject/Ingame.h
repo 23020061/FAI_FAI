@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "Map.h"
 #include "Character.h"
+#include <SDL_mixer.h>
 
 class Ingame : public GameState
 {
@@ -23,6 +24,8 @@ private:
     static const std::string GameIn;
 
     Map* MAP;
+
+    Mix_Music* Music = NULL;
 
     Character* Player;
 

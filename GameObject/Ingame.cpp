@@ -13,12 +13,18 @@ int GetRandom(int min, int max)
 
 bool Ingame::Start()
 {
+    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
+
+    Music = Mix_LoadMUS("11-Fight2.mp3");
     MAP = new Map();
+
     Player = new Character("16x16 knight 1.png", 1600, 1600);
 
     Enemy1_.push_back(new Enemy1(GetRandom(192, 2976), GetRandom(96, 3102)));
 
     Enemy2_.push_back(new Enemy2(GetRandom(192, 2976), GetRandom(96, 3102)));
+
+    Mix_PlayMusic(Music, -1);
 
     return true;
 }
@@ -45,13 +51,22 @@ bool Ingame::End()
     MAP->Destroy();
     //delete MAP;
     return true;
+    Mix_Quit();
 }
 
 void Ingame::Update(int &CurrentState, int &checkChange)
 {
+        if(Player->EnterP() == true)
+        {
+
+            CurrentState = PauseG;
+            checkChange = 1;
+        }
+        else
+        {
         Player->Update(MAP->HasCollision(), Enemy1_, Enemy2_);
 
-        while(Enemy1_.size() <= 1 )
+        while(Enemy1_.size() < 10 )
         {
            int x, y;
         x = GetRandom(192, 2976);
@@ -70,7 +85,7 @@ void Ingame::Update(int &CurrentState, int &checkChange)
             }
         }
 
-                while(Enemy2_.size() < 1)
+                while(Enemy2_.size() < 10)
         {
             int x, y;
             x = GetRandom(192, 2976);
@@ -94,6 +109,7 @@ void Ingame::Update(int &CurrentState, int &checkChange)
             End();
             CurrentState = EndG;
             checkChange = 1;
+        }
         }
 
 }

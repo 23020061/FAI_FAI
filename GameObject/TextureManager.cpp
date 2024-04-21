@@ -28,7 +28,7 @@ SDL_Texture* TextureManager::LoadText(const char* NameTTF, const char* Content, 
 {
      gFont = TTF_OpenFont(NameTTF, size_font);
 
-     SDL_Color textColor = {139, 0, 0};
+     SDL_Color textColor = {140, 0, 0};
 
      SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, Content, textColor);
 

@@ -27,6 +27,7 @@ void GameStart::Render()
 void GameStart::Update(int &CurrentState, int &checkChange)
 {
         menu->Update();
+        checkChange = 0;
         if(menu->InputPlay() == true)
         {
             End();

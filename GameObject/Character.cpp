@@ -29,16 +29,18 @@ Collision Knight(ColliChar.getCollisionBox().x - 35 * 2, ColliChar.getCollisionB
 
 
 
-
 Character::Character(const char* path,int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
 
+
+    Cam.x = (Position.x + CHAR_WIDTH / 2) - CAM_WIDTH / 2;
+    Cam.y = (Position.y + CHAR_HEIGHT / 2) - CAM_HEIGHT / 2;
+
+
     Health_Char = 100;
 
     TTF_Init();
-
-
 
     check = false;
 
@@ -66,6 +68,13 @@ Character::Character(const char* path,int x, int y)
 
     ExpCenter = TextureManager::LoadTexture("ExpCenter.png");
     ExpHolderCenter = TextureManager::LoadTexture("ExpHolderCenter.png");
+
+    ButtonAttack = TextureManager::LoadTexture("ButtonAttack.png");
+    TimeCoolDownAttack = TextureManager::LoadTexture("Xam.jpg");
+    TimeAttack.x = 1100;
+    TimeAttack.y = 680;
+    TimeAttack.w = 60;
+    TimeAttack.h = 60;
 
     Cam.w = CAM_WIDTH;
     Cam.h = CAM_HEIGHT;
@@ -192,13 +201,20 @@ void Character::InputHandle(SDL_Event& event)
         Velocity.y = 0;
         Uint32 StartTime = SDL_GetTicks();
 
-    if(Health_Char != 0)
+        if(StartTime - CurrentTime <= 1000)
+        {
+            TimeAttack.w = (60 * 1000 - 60 *( (StartTime - CurrentTime))) / 1000;
+        }
+        else
+        {
+            TimeAttack.w = 0;
+        }
+    if(Health_Char > 0)
     {
-
+            if(CurrentKeyState[SDL_SCANCODE_P]) checkP = true;
             if(CurrentKeyState[SDL_SCANCODE_J] && StartTime - CurrentTime >= 1000  )
         {
-            std::string tempTime = std::to_string(StartTime - CurrentTime);
-            TimeCoolDownAttack = TextureManager::LoadText("Robus-BWqOd.otf", tempTime.c_str(), 100, TimeFont, TextAttack);
+
             if(StartTime - CurrentTime >= 1000 || CoolDownAttack == true)
             {
                 LoadSpriteState(cntATTACK, ATTACK, STATE_ATTACK);
@@ -213,7 +229,9 @@ void Character::InputHandle(SDL_Event& event)
         }
         else if(CurrentKeyState[SDL_SCANCODE_K])
         {
+            if(cntSHEILDBLOCKING == 1) cntSHEILDBLOCKING--;
             LoadSpriteState(cntSHEILDBLOCKING, SHIELDBLOCKING, STATE_SHIELDBLOCKING);
+
         }
         else
         {
@@ -224,8 +242,7 @@ void Character::InputHandle(SDL_Event& event)
             Check = SDL_FLIP_NONE;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.x += CHARACTER_VEL;
-        }
-        if(CurrentKeyState[SDL_SCANCODE_A])
+        } else if(CurrentKeyState[SDL_SCANCODE_A])
         {
             state = true;
             Check = SDL_FLIP_HORIZONTAL;
@@ -277,6 +294,7 @@ void Character::Camera()
     {
         Cam.y = MAP_HEIGHT - CAM_HEIGHT;
     }
+
 }
 
 void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy, std::vector <Enemy2*> &EnemyOther)
@@ -377,8 +395,6 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
 
 void Character::Render()
 {
-    TextureManager::Render(TextAttack.x, TextAttack.y, TextAttack.w, TextAttack.h, TimeCoolDownAttack, NULL, 0, NULL, SDL_FLIP_NONE);
-
 
    {
     TextureManager::Render(10, 10, 34, 30, IconHealth, NULL, 0, NULL, SDL_FLIP_NONE);
@@ -442,9 +458,12 @@ void Character::Render()
 
         Exp_Char = 0;
     }
+   // std::cout << Cam.x << ' ' << Cam.y << '\n';
 
-    //SDL_RenderCopyEx(Game::Renderer, MapTex, &Cam, NULL, 0, NULL, SDL_FLIP_NONE);
-    SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
+    TextureManager::Render(1100, 680, 60, 60, ButtonAttack, NULL, 0, NULL, SDL_FLIP_NONE);
+   // TextureManager::Render(1100, 680, TextAttack.w, TextAttack.h, TimeCoolDownAttack, NULL, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(Game::Renderer, TimeCoolDownAttack, NULL, &TimeAttack, 0 , NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
 }
 
 Character::~Character()
@@ -478,4 +497,5 @@ Character::~Character()
 
     delete ExpLeft, ExpRight, ExpCenter, IconExp, ExpHolderCenter, ExpHolderLeft, ExpHolderRight;
 
+    TTF_Quit();
 }
