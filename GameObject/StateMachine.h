@@ -18,7 +18,7 @@ public:
 
     void Render();
 
-    void Update(int &CurrentState, int &checkChange);
+    void Update(int &CurrentState, int &checkChange, std::string &Score);
 
     std::vector<GameState*> Machine;
 

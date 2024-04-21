@@ -54,7 +54,7 @@ bool Ingame::End()
     Mix_Quit();
 }
 
-void Ingame::Update(int &CurrentState, int &checkChange)
+void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
         if(Player->EnterP() == true)
         {
@@ -110,6 +110,8 @@ void Ingame::Update(int &CurrentState, int &checkChange)
             CurrentState = EndG;
             checkChange = 1;
         }
+
+        Score = Player->getScore();
         }
 
 }

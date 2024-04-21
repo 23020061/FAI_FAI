@@ -286,12 +286,12 @@ void Enemy2::Move(Vector2D Target, Collision temp, int x, int y)
             if(x + 32 > PosEnemy.x )
         {
             CheckEne_1 = SDL_FLIP_NONE;
-            VelEnemy.x += ENE_VEL;
+            VelEnemy.x += (ENE_VEL + 1);
         }
         else if(x + 32 < PosEnemy.x)
         {
             CheckEne_1 = SDL_FLIP_HORIZONTAL;
-            VelEnemy.x -= ENE_VEL;
+            VelEnemy.x -= (ENE_VEL + 1);
         }
         else
         {
@@ -301,11 +301,11 @@ void Enemy2::Move(Vector2D Target, Collision temp, int x, int y)
 
             if(y + 32 > PosEnemy.y )
         {
-            VelEnemy.y += ENE_VEL;
+            VelEnemy.y += (ENE_VEL + 1);
         }
             else if(y + 32 < PosEnemy.y)
         {
-            VelEnemy.y -= ENE_VEL;
+            VelEnemy.y -= (ENE_VEL + 1);
         }
             else
             {

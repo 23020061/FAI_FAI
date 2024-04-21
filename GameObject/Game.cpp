@@ -19,6 +19,8 @@ SDL_Renderer* Game::Renderer = nullptr;
 int CurrentState = StartG;
 StateMachine* Machine;
 int checkChange = 0;
+std::string ScoreMain = "";
+
 Game::Game(){}
 Game::~Game(){}
 void Game::init(const char* title, int x, int y, int Width, int Height, bool FullScreen)
@@ -61,7 +63,7 @@ void Game::HandleEvents()
 void Game::Update()
 {
     checkChange = 0;
-    Machine->Update(CurrentState, checkChange);
+    Machine->Update(CurrentState, checkChange, ScoreMain);
 
     if(checkChange != 0)
     {

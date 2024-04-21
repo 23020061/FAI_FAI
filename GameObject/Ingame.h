@@ -14,7 +14,7 @@ public:
     virtual bool End();
 
     virtual void Handle(SDL_Event& e);
-    virtual void Update(int &CurrentState, int &checkChange);
+    virtual void Update(int &CurrentState, int &checkChange, std::string &Score);
     virtual void Render();
     virtual std::string getState() const
     {

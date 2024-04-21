@@ -69,6 +69,12 @@ public:
     {
     return checkP;
     }
+
+    std::string getScore()
+    {
+        return total;
+    }
+
     Collision GetColli();
 private:
 
@@ -97,13 +103,20 @@ private:
     SDL_Texture *ExpCenter, *ExpHolderCenter;
     SDL_Texture *IconExp;
 
-    int Health_Char = 100;
+    float Health_Char = 100;
     int checkAttack = 0;
     int checkAttackOther = 0;
     int checkDead = 0;
     int Exp_Char = 0;
     int cntPath = 1;
 
+    int Score = 0;
+    int Armor = 1;
+    SDL_Texture* TexScore;
+    TTF_Font* ScoreFont = NULL;
+    SDL_Rect RectScore;
+    std::string ScoreChar = "Score:";
+    std::string total = "";
     bool checkP = false;
 };
 

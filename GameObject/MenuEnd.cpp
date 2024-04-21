@@ -17,11 +17,13 @@ void MenuEnd::Init()
     GameOver = TextureManager::LoadText("Robus-BWqOd.otf", "Game Over!", 200, NameFont, textRect);
 }
 
-void MenuEnd::Update()
+void MenuEnd::Update(std::string &Score)
 {
     Replay->Update();
-
     Quit->Update();
+    TTF_Font* ScoreFont;
+    std::string temp = "Your " + Score;
+    ScoreTex = TextureManager::LoadText("monogram.ttf", temp.c_str(), 100, ScoreFont, ScoreRect);
 
     if(Replay->Enter() == true)
     {
@@ -49,7 +51,7 @@ void MenuEnd::Render()
     TextureManager::Render(640 - 400 / 2 , 350, 400, 400, Table, NULL, 0, NULL, SDL_FLIP_NONE);
 
     TextureManager::Render(textRect.x, textRect.y, textRect.w, textRect.h, GameOver, NULL, 0, NULL, SDL_FLIP_NONE);
-
+    TextureManager::Render(640 - 400 / 2 - 10 , 250, ScoreRect.w, ScoreRect.h, ScoreTex, NULL, 0, NULL, SDL_FLIP_NONE);
     Replay->Render();
     Quit->Render();
 

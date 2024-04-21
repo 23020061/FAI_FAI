@@ -17,7 +17,7 @@ int IDLE = 5, cntIDLE = 0,
 SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
-const float CHARACTER_VEL = 5;
+const float CHARACTER_VEL = 7;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
@@ -249,13 +249,13 @@ void Character::InputHandle(SDL_Event& event)
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.x -= CHARACTER_VEL;
         }
-        if(CurrentKeyState[SDL_SCANCODE_S])
+            else if(CurrentKeyState[SDL_SCANCODE_S])
         {
             state = true;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.y += CHARACTER_VEL;
         }
-        if(CurrentKeyState[SDL_SCANCODE_W])
+        else if(CurrentKeyState[SDL_SCANCODE_W])
         {
             state = true;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
@@ -320,7 +320,7 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
     {
         if(Enemy[i]->attack_enemy == true)
     {
-      Health_Char -= 10;
+      Health_Char -= (1.0 / Armor);
     }
         if(CurrentKeyState[SDL_SCANCODE_J] && Knight.checkCollision(Enemy[i]->getColli()) == true)
         {
@@ -328,10 +328,14 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
             //std::cout << Knight.getCollisionBox().x << ";" << Knight.getCollisionBox().y << ' ' << Knight.getCollisionBox().w << ";" << Knight.getCollisionBox().h << '\n';
             if(cntATTACK == ATTACK - 1)
             {
-                Enemy[i]->HealthEnemy -= 1;
+                Enemy[i]->HealthEnemy -= 2;
                 //std::cout << Enemy[i]->Health << '\n';
                 Enemy[i]->checkHealth = true;
-                if(Enemy[i]->HealthEnemy == 0) Exp_Char += 10;
+                if(Enemy[i]->HealthEnemy == 0)
+                {
+                    Exp_Char += 10;
+                    Score += 10;
+                }
             }
         }
     else
@@ -348,7 +352,7 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
     {
         if(EnemyOther[i]->attack_enemy == true && ColliChar.checkCollision(EnemyOther[i]->getColli()) == true)
         {
-      Health_Char -= 10;
+      Health_Char -= (10 / Armor);
         }
 
         if(CurrentKeyState[SDL_SCANCODE_J] && Knight.checkCollision(EnemyOther[i]->getColli()) == true)
@@ -357,10 +361,14 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
             //std::cout << Knight.getCollisionBox().x << ";" << Knight.getCollisionBox().y << ' ' << Knight.getCollisionBox().w << ";" << Knight.getCollisionBox().h << '\n';
             if(cntATTACK == ATTACK - 1)
             {
-                EnemyOther[i]->HealthEnemy -= 10;
+                EnemyOther[i]->HealthEnemy -= 2;
                 //std::cout << Enemy[i]->Health << '\n';
                 EnemyOther[i]->checkHealth = true;
-                if(EnemyOther[i]->HealthEnemy == 0) Exp_Char += 10;
+                if(EnemyOther[i]->HealthEnemy == 0)
+                {
+                    Exp_Char += 15;
+                    Score += 15;
+                }
             }
         }
     else
@@ -391,6 +399,10 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
     srcRect.w = CHAR_WIDTH * 2;
     srcRect.h = CHAR_HEIGHT * 2;
 
+    std::string s = std::to_string(Score);
+    total = ScoreChar + s;
+    TexScore = TextureManager::LoadText("monogram.ttf", total.c_str(), 40, ScoreFont, RectScore);
+   // std::cout << total << '\n';
 }
 
 void Character::Render()
@@ -451,15 +463,20 @@ void Character::Render()
         {
             case 2:
                 CharTex = TextureManager::LoadTexture("16x16 knight 2.png");
+                Health_Char = 100;
+                Armor += 2;
                 break;
             case 3:
                 CharTex = TextureManager::LoadTexture("16x16 knight 3.png");
+                Health_Char = 100;
+                Armor += 2;
         }
 
         Exp_Char = 0;
     }
    // std::cout << Cam.x << ' ' << Cam.y << '\n';
 
+    TextureManager::Render(1100, 40, RectScore.w, RectScore.h, TexScore, NULL, 0, NULL, SDL_FLIP_NONE);
     TextureManager::Render(1100, 680, 60, 60, ButtonAttack, NULL, 0, NULL, SDL_FLIP_NONE);
    // TextureManager::Render(1100, 680, TextAttack.w, TextAttack.h, TimeCoolDownAttack, NULL, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderCopyEx(Game::Renderer, TimeCoolDownAttack, NULL, &TimeAttack, 0 , NULL, SDL_FLIP_NONE);

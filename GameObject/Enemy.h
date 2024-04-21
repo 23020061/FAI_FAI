@@ -5,7 +5,7 @@
 
 const int ENE_WIDTH = 64;
 const int ENE_HEIGHT = 64;
-const int ENE_VEL = 3;
+const int ENE_VEL = 4;
 
 
 class Enemy1
@@ -93,7 +93,7 @@ public:
 
     void Destroy();
 
-    float HealthEnemy = 20;
+    float HealthEnemy = 10;
 
     bool checkHealth = false;
 

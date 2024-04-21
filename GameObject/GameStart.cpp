@@ -24,7 +24,7 @@ void GameStart::Render()
         menu->Render();
 }
 
-void GameStart::Update(int &CurrentState, int &checkChange)
+void GameStart::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
         menu->Update();
         checkChange = 0;

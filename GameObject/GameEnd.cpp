@@ -17,9 +17,9 @@ bool GameEnd::End()
     return true;
 }
 
-void GameEnd::Update(int &CurrentState, int &checkChange)
+void GameEnd::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
-        MenuExit->Update();
+        MenuExit->Update(Score);
         if(MenuExit->InputReplay() == true)
         {
             End();

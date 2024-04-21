@@ -8,7 +8,7 @@ class MenuEnd
 public:
     void handle(SDL_Event &e);
 
-    void Update();
+    void Update(std::string &Score);
 
     void Render();
 
@@ -38,6 +38,10 @@ private:
     SDL_Rect textRect;
 
     Mix_Music* MusicEnd = NULL;
+
+    SDL_Texture* ScoreTex;
+    SDL_Rect ScoreRect;
+
 
     bool checkReplay, checkQuit;
 };
