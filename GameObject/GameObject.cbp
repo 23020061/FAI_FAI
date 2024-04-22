@@ -48,7 +48,6 @@
 		<Unit filename="Game.h" />
 		<Unit filename="GameEnd.cpp" />
 		<Unit filename="GameEnd.h" />
-		<Unit filename="GamePause" />
 		<Unit filename="GamePause.cpp" />
 		<Unit filename="GamePause.h" />
 		<Unit filename="GameStart.cpp" />

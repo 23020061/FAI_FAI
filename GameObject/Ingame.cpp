@@ -58,7 +58,6 @@ void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
         if(Player->EnterP() == true)
         {
-
             CurrentState = PauseG;
             checkChange = 1;
         }

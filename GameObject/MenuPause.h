@@ -28,11 +28,9 @@ public:
 
 private:
 
-    SDL_Texture* TablePause;
-
     Button* Resume;
     Button* Regame;
 
-    bool checkRegame, checkResume;
+    bool checkRegame = false, checkResume = false;
 
 };

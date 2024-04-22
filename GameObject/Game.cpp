@@ -65,7 +65,7 @@ void Game::Update()
     checkChange = 0;
     Machine->Update(CurrentState, checkChange, ScoreMain);
 
-    if(checkChange != 0)
+    if(checkChange == 1 )
     {
         switch(CurrentState)
          {
@@ -80,11 +80,15 @@ void Game::Update()
         break;
     case PauseG:
         Machine->Push(new GamePause());
-
+        break;
     case Quit:
         IsRunning = false;
         break;
         }
+    }
+    if(checkChange == 2)
+    {
+    Machine->Popback();
     }
 
 
@@ -93,8 +97,16 @@ void Game::Update()
 void Game::Render()
 {
     SDL_RenderClear(Renderer);
+switch(CurrentState)
+{
+    case PauseG:
+    Machine->Render(2);
+    break;
+    default:
+    Machine->Render(1);
+    break;
 
-    Machine->Render();
+}
 
     SDL_RenderPresent(Renderer);
 }

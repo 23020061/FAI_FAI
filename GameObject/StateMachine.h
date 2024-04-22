@@ -16,14 +16,13 @@ public:
 
     void Handle(SDL_Event &e);
 
-    void Render();
+    void Render(int x);
 
     void Update(int &CurrentState, int &checkChange, std::string &Score);
 
-    std::vector<GameState*> Machine;
-
 private:
 
+    std::vector<GameState*> Machine;
 
 
 };

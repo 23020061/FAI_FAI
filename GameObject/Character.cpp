@@ -211,6 +211,7 @@ void Character::InputHandle(SDL_Event& event)
         }
     if(Health_Char > 0)
     {
+        checkP = false;
             if(CurrentKeyState[SDL_SCANCODE_P]) checkP = true;
             if(CurrentKeyState[SDL_SCANCODE_J] && StartTime - CurrentTime >= 1000  )
         {

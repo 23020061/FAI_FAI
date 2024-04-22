@@ -40,9 +40,17 @@ void StateMachine::Change(GameState* TempState)
 
 }
 
-void StateMachine::Render()
+void StateMachine::Render(int x)
 {
-    Machine.back()->Render();
+    if(x == 1)
+        {
+            Machine.back()->Render();
+        }
+    if(x == 2)
+    {
+        Machine[Machine.size() - 2]->Render();
+        Machine.back()->Render();
+    }
 }
 
 void StateMachine::Update(int &CurrentState, int &checkChange, std::string &Score)

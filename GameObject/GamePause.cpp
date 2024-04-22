@@ -22,17 +22,16 @@ void GamePause::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
     MenuStop->Update();
 
-    if(MenuStop->GetReplay())
+    if(MenuStop->GetReplay() == true)
     {
         End();
         CurrentState = StartG;
         checkChange = 1;
     }
-    else if(MenuStop->GetResume())
+    else if(MenuStop->GetResume() == true)
     {
-        End();
         CurrentState = In;
-        checkChange = 1;
+        checkChange = 2;
     }
 }
 
