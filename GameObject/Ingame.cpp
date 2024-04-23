@@ -20,9 +20,9 @@ bool Ingame::Start()
 
     Player = new Character("16x16 knight 1.png", 1600, 1600);
 
-    Enemy1_.push_back(new Enemy1(GetRandom(192, 2976), GetRandom(96, 3102)));
+    //Enemy1_.push_back(new Enemy1(GetRandom(192, 2976), GetRandom(96, 3102)));
 
-    Enemy2_.push_back(new Enemy2(GetRandom(192, 2976), GetRandom(96, 3102)));
+    //Enemy2_.push_back(new Enemy2(GetRandom(192, 2976), GetRandom(96, 3102)));
 
     Mix_PlayMusic(Music, -1);
 
@@ -65,7 +65,7 @@ void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score)
         {
         Player->Update(MAP->HasCollision(), Enemy1_, Enemy2_);
 
-        while(Enemy1_.size() < 10 )
+        while(Enemy1_.size() < 0 )
         {
            int x, y;
         x = GetRandom(192, 2976);
@@ -84,7 +84,7 @@ void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score)
             }
         }
 
-                while(Enemy2_.size() < 10)
+                while(Enemy2_.size() < 0)
         {
             int x, y;
             x = GetRandom(192, 2976);

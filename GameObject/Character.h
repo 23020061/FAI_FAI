@@ -118,5 +118,15 @@ private:
     std::string ScoreChar = "Score:";
     std::string total = "";
     bool checkP = false;
+
+    SDL_Texture* MoveCharacter = NULL;
+
+    SDL_Texture* EffectRun = NULL;
+    int cntEffectRun = 0, TotalEffectRun = 24;
+    SDL_Rect RunRect[24];
+    SDL_Rect Allow;
+    SDL_RendererFlip checkFlipRun = SDL_FLIP_HORIZONTAL;
+    bool inShift = false;
+    bool checkEffectRun = false;
 };
 
