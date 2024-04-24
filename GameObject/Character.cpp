@@ -17,7 +17,7 @@ int IDLE = 5, cntIDLE = 0,
 SDL_Rect Sprite[STATE_TOTAL][10];
 SDL_Rect Current;
 SDL_RendererFlip Check = SDL_FLIP_NONE;
- float CHARACTER_VEL = 7;
+float CHARACTER_VEL = 7;
 
 const int CHAR_WIDTH = 64;
 const int CHAR_HEIGHT = 64;
@@ -33,10 +33,8 @@ Character::Character(const char* path,int x, int y)
 {
     CharTex = TextureManager::LoadTexture(path);
 
-
     Cam.x = (Position.x + CHAR_WIDTH / 2) - CAM_WIDTH / 2;
     Cam.y = (Position.y + CHAR_HEIGHT / 2) - CAM_HEIGHT / 2;
-
 
     Health_Char = 100;
 
@@ -133,7 +131,6 @@ Character::Character(const char* path,int x, int y)
         RunRect[i].w = 64;
         RunRect[i].h = 20;
     }
-
 
 }
 
@@ -336,10 +333,10 @@ void Character::Camera()
 
 }
 
-void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy, std::vector <Enemy2*> &EnemyOther)
+void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy, std::vector <Enemy2*> &EnemyOther, std::string &Name_, int &HighScore)
 {
     Move(MapColli);
-
+    NameTexture = TextureManager::LoadText( "monogram.ttf" ,Name_.c_str(), 40, NameFont, NameRect );
    // std::cout << ColliChar.getCollisionBox().x << ";" << ColliChar.getCollisionBox().y << '\t' << ColliChar.getCollisionBox().w << ";" << ColliChar.getCollisionBox().h << '\n';
         if(Check == SDL_FLIP_NONE)
         {
@@ -370,7 +367,7 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
                 Enemy[i]->HealthEnemy -= 2;
                 //std::cout << Enemy[i]->Health << '\n';
                 Enemy[i]->checkHealth = true;
-                if(Enemy[i]->HealthEnemy == 0)
+                if(Enemy[i]->HealthEnemy <= 0)
                 {
                     Exp_Char += 10;
                     Score += 10;
@@ -403,7 +400,7 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
                 EnemyOther[i]->HealthEnemy -= 2;
                 //std::cout << Enemy[i]->Health << '\n';
                 EnemyOther[i]->checkHealth = true;
-                if(EnemyOther[i]->HealthEnemy == 0)
+                if(EnemyOther[i]->HealthEnemy <= 0)
                 {
                     Exp_Char += 15;
                     Score += 15;
@@ -414,12 +411,12 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
         {
                 checkAttackOther = 0;
         }
-
-
     }
 
         if(Health_Char <= 0)
     {
+        if(HighScore <= Score) changeName = true;
+        else changeName = false;
         checkDead++;
         LoadSpriteState(cntDEAD, DEAD, STATE_DEAD);
         SDL_Delay(100);
@@ -441,7 +438,6 @@ void Character::Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &E
     std::string s = std::to_string(Score);
     total = ScoreChar + s;
     TexScore = TextureManager::LoadText("monogram.ttf", total.c_str(), 40, ScoreFont, RectScore);
-   // std::cout << total << '\n';
 
    if(Check == SDL_FLIP_NONE)
    {
@@ -485,12 +481,9 @@ void Character::Render()
     {
         TextureManager::Render(50 + 206 / 10 + 80 * 22 / 11, 10, 206 / 10, 349 / 10, HealthRight, NULL, 0, NULL, SDL_FLIP_NONE);
     }
-
     }
 
-
     {
-
     TextureManager::Render(10, 40, 34, 30, IconExp, NULL, 0, NULL, SDL_FLIP_NONE);
 
     TextureManager::Render(50, 40, 206 / 10, 349 / 10, ExpHolderLeft, NULL, 0, NULL, SDL_FLIP_NONE);
@@ -514,7 +507,8 @@ void Character::Render()
 
     }
     if(Exp_Char >= 100)
-    {   if(cntPath <= 3) cntPath++;
+    {
+        if(cntPath <= 3) cntPath++;
         switch(cntPath)
         {
             case 2:
@@ -529,14 +523,13 @@ void Character::Render()
         }
         Exp_Char = 0;
     }
-   // std::cout << Cam.x << ' ' << Cam.y << '\n';
-
-   TextureManager::Render(30, 580, 200, 200, MoveCharacter, NULL, 0, NULL, SDL_FLIP_NONE);
+    TextureManager::Render(30, 580, 200, 200, MoveCharacter, NULL, 0, NULL, SDL_FLIP_NONE);
     TextureManager::Render(1100, 40, RectScore.w, RectScore.h, TexScore, NULL, 0, NULL, SDL_FLIP_NONE);
     TextureManager::Render(1100, 680, 60, 60, ButtonAttack, NULL, 0, NULL, SDL_FLIP_NONE);
-   // TextureManager::Render(1100, 680, TextAttack.w, TextAttack.h, TimeCoolDownAttack, NULL, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderCopyEx(Game::Renderer, TimeCoolDownAttack, NULL, &TimeAttack, 0 , NULL, SDL_FLIP_NONE);
+    TextureManager::Render(Position.x - Cam.x + 64 - NameRect.w / 2, Position.y - Cam.y, NameRect.w, NameRect.h, NameTexture, NULL, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderCopyEx(Game::Renderer, CharTex, &Current, &srcRect, 0, NULL, Check);
+
     if(checkEffectRun == true) SDL_RenderCopyEx(Game::Renderer, EffectRun, &RunRect[cntEffectRun], &Allow, 0, NULL, checkFlipRun);
 }
 
@@ -544,9 +537,11 @@ Character::~Character()
 {
     SDL_DestroyTexture(CharTex);
     delete CharTex;
+    CharTex = NULL;
 
     SDL_DestroyTexture(TimeCoolDownAttack);
     delete TimeCoolDownAttack;
+    TimeCoolDownAttack = NULL;
     TTF_Quit();
 
     SDL_DestroyTexture(HealthLeft);
@@ -559,6 +554,13 @@ Character::~Character()
     SDL_DestroyTexture(HealthHolderRight);
 
     delete HealthLeft, HealthRight, HealthCenter, IconHealth, HealthHolderCenter, HealthHolderLeft, HealthHolderRight;
+    HealthCenter = NULL;
+    HealthHolderCenter = NULL;
+    HealthHolderLeft = NULL;
+    HealthHolderRight = NULL;
+    HealthLeft = NULL;
+    HealthRight = NULL;
+    IconHealth = NULL;
 
     SDL_DestroyTexture(ExpLeft);
     SDL_DestroyTexture(ExpRight);
@@ -571,5 +573,30 @@ Character::~Character()
 
     delete ExpLeft, ExpRight, ExpCenter, IconExp, ExpHolderCenter, ExpHolderLeft, ExpHolderRight;
 
+    ExpCenter = NULL;
+    ExpHolderCenter = NULL;
+    ExpHolderLeft = NULL;
+    ExpHolderRight = NULL;
+    ExpLeft = NULL;
+    ExpRight = NULL;
+    IconExp = NULL;
+
+    delete CurrentKeyState;
+    CurrentKeyState = NULL;
+
+    delete TexScore;
+    TexScore = NULL;
+
+    delete ScoreFont;
+    ScoreFont = NULL;
+
+    delete EffectRun;
+    EffectRun = NULL;
+
+    delete NameTexture;
+    NameTexture = NULL;
+
+    delete NameFont;
+    NameFont = NULL;
     TTF_Quit();
 }

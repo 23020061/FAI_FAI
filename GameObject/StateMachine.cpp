@@ -53,9 +53,9 @@ void StateMachine::Render(int x)
     }
 }
 
-void StateMachine::Update(int &CurrentState, int &checkChange, std::string &Score)
+void StateMachine::Update(int &CurrentState, int &checkChange, std::string &Score, std::string &Name_, int &HighScore, bool &changeMain)
 {
-    Machine.back()->Update(CurrentState, checkChange, Score);
+    Machine.back()->Update(CurrentState, checkChange, Score, Name_, HighScore, changeMain);
 }
 
 void StateMachine::Handle(SDL_Event &e)

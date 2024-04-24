@@ -10,6 +10,8 @@ const int SCREEN_HEIGHT = 800;
 
 int main(int argc, char* argv[])
 {
+    int ScoreOfEnd = 0;
+
     const int FPS = 20;
     const int frameDelay = 1000 / FPS;
 

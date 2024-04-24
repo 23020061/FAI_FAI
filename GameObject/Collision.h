@@ -23,8 +23,6 @@ public:
 
     void UpdateH(int h);
 
-
-
 private:
 
     SDL_Rect CollisionBox;

@@ -164,9 +164,8 @@ void Map::Destroy()
     {
         for(int j = 0; j < Rect_Height; j++)
         {
-                delete []TileSprite[i][j];
+                delete [] TileSprite[i][j];
         }
-
     }
 }
 

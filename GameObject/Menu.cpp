@@ -26,13 +26,14 @@ void Menu::Clear()
 {
     Mix_FreeMusic(MusicStart);
     MusicStart = NULL;
-    //delete Play;
-    //delete Quit;
+    delete Play;
+    delete Quit;
+
     SDL_DestroyTexture(Table);
     delete Table;
 
     SDL_DestroyTexture(Background);
-    delete Background;
+     Background = NULL;
 
     SDL_DestroyTexture(FAI_FAI);
     delete FAI_FAI;

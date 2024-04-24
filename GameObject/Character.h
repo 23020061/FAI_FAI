@@ -46,7 +46,7 @@ public:
 
     void Camera();
 
-    void Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy, std::vector<Enemy2*> &EnemyOther);
+    void Update(std::vector <Collision> MapColli, std::vector<Enemy1*> &Enemy, std::vector<Enemy2*> &EnemyOther, std::string &Name, int &HighScore);
 
     void Render();
 
@@ -73,6 +73,11 @@ public:
     std::string getScore()
     {
         return total;
+    }
+
+    bool getChangrName()
+    {
+        return changeName;
     }
 
     Collision GetColli();
@@ -128,5 +133,12 @@ private:
     SDL_RendererFlip checkFlipRun = SDL_FLIP_HORIZONTAL;
     bool inShift = false;
     bool checkEffectRun = false;
+
+    SDL_Texture* NameTexture;
+    TTF_Font* NameFont;
+    SDL_Rect NameRect;
+
+    bool changeName = false;
+
 };
 

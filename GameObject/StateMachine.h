@@ -18,7 +18,7 @@ public:
 
     void Render(int x);
 
-    void Update(int &CurrentState, int &checkChange, std::string &Score);
+    void Update(int &CurrentState, int &checkChange, std::string &Score, std::string &Name_, int &HighScore, bool &changeMain);
 
 private:
 
