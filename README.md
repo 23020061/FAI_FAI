@@ -31,7 +31,16 @@
 
 ## **Thông số về từng cấp độ của nhân vật**
 
+## **Cách điều khiển**
 
+| Chức năng   |  Phím ấn |
+|-------------|----------|
+|  Đi lên     |     W    |
+|  Đi xuống   |     S    |
+|  Sang Trái  |     A    |
+|  Sang Phải  |     D    |
+|  Tấn công   |     J    |
+| Tăng tốc di chuyển| Phím di chuyển (W, A, S, D) + Shift Trái |
 
 ## **Cách cài đặt**
 
