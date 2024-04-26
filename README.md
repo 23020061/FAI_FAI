@@ -46,7 +46,7 @@ Video giới thiệu về game: https://youtu.be/PNMk6r0HRRo
 |  Đi xuống   ||     S    |
 |  Sang Trái  |  |    A    |
 |  Sang Phải  |  |   D    |
-|  Tấn công   |  ![](ImageReview/ButtonAttack.png)|   J    |
+|  Tấn công(Thời gian hồi chiêu là 1s)   |  ![](ImageReview/ButtonAttack.png)|   J    |
 | Tạm dừng trò chơi|  |   P  |
 ## **Một vài hình ảnh về Game**
 - *Bắt đầu*
