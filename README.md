@@ -60,9 +60,11 @@
 
 ## **Cách cài đặt**
 
-- Bước 1:
+- Bước 1: Download file về máy
 
-- Bước 2:
+- Bước 2: Giải nén
+
+- Bước 3: Tìm file GameObject.exe, mở file ra và thưởng thức trò chơi.
 
 
 ## **Kỹ thuật sử dụng**
