@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713715816 source:d:\gameobject\fai fai\gameobject\game.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\game.cpp
 	"Game.h"
 	"bits/stdc++.h"
 	"TextureManager.h"
@@ -16,7 +16,7 @@
 	"MenuEnd.h"
 	"GamePause.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\game.h
+1714076758 d:\gameobject\fai fai\gameobject\game.h
 	<SDL.h>
 	<SDL_image.h>
 	"iostream"
@@ -420,18 +420,18 @@
 	"begin_code.h"
 	"close_code.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\main.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\main.cpp
 	"Game.h"
 	<bits/stdc++.h>
 
-1713715816 d:\gameobject\fai fai\gameobject\texturemanager.h
+1714076758 d:\gameobject\fai fai\gameobject\texturemanager.h
 	"Game.h"
 	<SDL_ttf.h>
 
 1711098483 d:\gameobject\fai fai\gameobject\gameobject.h
 	"Game.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\texturemanager.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\texturemanager.cpp
 	"TextureManager.h"
 	<SDL_ttf.h>
 
@@ -439,14 +439,14 @@
 	"GameObject.h"
 	"TextureManager.h"
 
-1714117025 source:d:\gameobject\fai fai\gameobject\character.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\character.cpp
 	"Character.h"
 	"TextureManager.h"
 	"Map.h"
 	"Collision.h"
 	"Enemy.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\character.h
+1714076758 d:\gameobject\fai fai\gameobject\character.h
 	"Game.h"
 	"Vector2D.h"
 	"Collision.h"
@@ -454,12 +454,12 @@
 	"Enemy.h"
 	<SDL_ttf.h>
 
-1713715816 d:\gameobject\fai fai\gameobject\vector2d.h
+1714076758 d:\gameobject\fai fai\gameobject\vector2d.h
 
-1713715816 source:d:\gameobject\fai fai\gameobject\vector2d.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\vector2d.cpp
 	"Vector2D.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\gamestart.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\gamestart.cpp
 	"GameStart.h"
 	"Menu.h"
 	"Game.h"
@@ -467,80 +467,80 @@
 1711301535 source:d:\gameobject\fai fai\gameobject\gamestate.cpp
 	"GameState.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\gamestate.h
+1714076758 d:\gameobject\fai fai\gameobject\gamestate.h
 	"Game.h"
 	<string>
 
-1713715816 source:d:\gameobject\fai fai\gameobject\gameend.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\gameend.cpp
 	"GameEnd.h"
 	"MenuEnd.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\gameend.h
+1714076758 d:\gameobject\fai fai\gameobject\gameend.h
 	"GameState.h"
 	"MenuEnd.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\gamestart.h
+1714076758 d:\gameobject\fai fai\gameobject\gamestart.h
 	"Game.h"
 	"GameState.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\ingame.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\ingame.cpp
 	"Ingame.h"
 	"Game.h"
 	"Character.h"
 	"Vector2D.h"
 	"Map.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\ingame.h
+1714076758 d:\gameobject\fai fai\gameobject\ingame.h
 	"Game.h"
 	"GameState.h"
 	"Map.h"
 	"Character.h"
 	<SDL_mixer.h>
 
-1713715816 source:d:\gameobject\fai fai\gameobject\statemachine.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\statemachine.cpp
 	"StateMachine.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\statemachine.h
+1714076758 d:\gameobject\fai fai\gameobject\statemachine.h
 	"GameState.h"
 	<vector>
 
-1713715816 source:d:\gameobject\fai fai\gameobject\menu.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\menu.cpp
 	"Menu.h"
 	"StateMachine.h"
 	"Ingame.h"
 	"TextureManager.h"
 	<SDL_mixer.h>
 
-1713715816 source:d:\gameobject\fai fai\gameobject\button.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\button.cpp
 	"Button.h"
 	"TextureManager.h"
 	"StateMachine.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\button.h
+1714076758 d:\gameobject\fai fai\gameobject\button.h
 	"Game.h"
 	"Vector2D.h"
 	<SDL_ttf.h>
 
-1713715816 d:\gameobject\fai fai\gameobject\menu.h
+1714076758 d:\gameobject\fai fai\gameobject\menu.h
 	"Game.h"
 	"Button.h"
 	<SDL_mixer.h>
 
-1713715816 source:d:\gameobject\fai fai\gameobject\map.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\map.cpp
 	"Map.h"
 	"TextureManager.h"
 	<bits/stdc++.h>
 	"Character.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\map.h
+1714076758 d:\gameobject\fai fai\gameobject\map.h
 	"Game.h"
 	"Collision.h"
 	"bits/stdc++.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\collision.h
+1714076758 d:\gameobject\fai fai\gameobject\collision.h
 	"Game.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\collision.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\collision.cpp
 	"Collision.h"
 
 1712127356 source:d:\download\fai_fai-main\fai_fai-main\gameobject\button.cpp
@@ -650,23 +650,23 @@
 1712127357 source:d:\download\fai_fai-main\fai_fai-main\gameobject\vector2d.cpp
 	"Vector2D.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\enemy.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\enemy.cpp
 	"Enemy.h"
 	"TextureManager.h"
 	"Game.h"
 	<bits/stdc++.h>
 
-1713715816 d:\gameobject\fai fai\gameobject\enemy.h
+1714076758 d:\gameobject\fai fai\gameobject\enemy.h
 	"Vector2D.h"
 	"Game.h"
 	"Collision.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\menuend.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\menuend.cpp
 	"MenuEnd.h"
 	"StateMachine.h"
 	"TextureManager.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\menuend.h
+1714076758 d:\gameobject\fai fai\gameobject\menuend.h
 	"Game.h"
 	"Button.h"
 	<SDL_mixer.h>
@@ -696,17 +696,187 @@
 	"begin_code.h"
 	"close_code.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\gamepause.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\gamepause.cpp
 	"GamePause.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\gamepause.h
+1714076758 d:\gameobject\fai fai\gameobject\gamepause.h
 	"GameState.h"
 	"MenuPause.h"
 
-1713715816 d:\gameobject\fai fai\gameobject\menupause.h
+1714076758 d:\gameobject\fai fai\gameobject\menupause.h
 	"Button.h"
 
-1713715816 source:d:\gameobject\fai fai\gameobject\menupause.cpp
+1714076758 source:d:\gameobject\fai fai\gameobject\menupause.cpp
 	"MenuPause.h"
 	"TextureManager.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\button.cpp
+	"Button.h"
+	"TextureManager.h"
+	"StateMachine.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\button.h
+	"Game.h"
+	"Vector2D.h"
+	<SDL_ttf.h>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\game.h
+	<SDL.h>
+	<SDL_image.h>
+	"iostream"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\vector2d.h
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\texturemanager.h
+	"Game.h"
+	<SDL_ttf.h>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\statemachine.h
+	"GameState.h"
+	<vector>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gamestate.h
+	"Game.h"
+	<string>
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\character.cpp
+	"Character.h"
+	"TextureManager.h"
+	"Map.h"
+	"Collision.h"
+	"Enemy.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\character.h
+	"Game.h"
+	"Vector2D.h"
+	"Collision.h"
+	"bits/stdc++.h"
+	"Enemy.h"
+	<SDL_ttf.h>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\collision.h
+	"Game.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\enemy.h
+	"Vector2D.h"
+	"Game.h"
+	"Collision.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\map.h
+	"Game.h"
+	"Collision.h"
+	"bits/stdc++.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\collision.cpp
+	"Collision.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\enemy.cpp
+	"Enemy.h"
+	"TextureManager.h"
+	"Game.h"
+	<bits/stdc++.h>
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\game.cpp
+	"Game.h"
+	"bits/stdc++.h"
+	"TextureManager.h"
+	"Character.h"
+	"GameState.h"
+	"StateMachine.h"
+	"GameStart.h"
+	"Ingame.h"
+	"Menu.h"
+	"Map.h"
+	"Collision.h"
+	"Enemy.h"
+	"GameEnd.h"
+	"MenuEnd.h"
+	"GamePause.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gamestart.h
+	"Game.h"
+	"GameState.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\ingame.h
+	"Game.h"
+	"GameState.h"
+	"Map.h"
+	"Character.h"
+	<SDL_mixer.h>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\menu.h
+	"Game.h"
+	"Button.h"
+	<SDL_mixer.h>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gameend.h
+	"GameState.h"
+	"MenuEnd.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\menuend.h
+	"Game.h"
+	"Button.h"
+	<SDL_mixer.h>
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gamepause.h
+	"GameState.h"
+	"MenuPause.h"
+
+1714076758 c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\menupause.h
+	"Button.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gameend.cpp
+	"GameEnd.h"
+	"MenuEnd.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gamepause.cpp
+	"GamePause.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\gamestart.cpp
+	"GameStart.h"
+	"Menu.h"
+	"Game.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\ingame.cpp
+	"Ingame.h"
+	"Game.h"
+	"Character.h"
+	"Vector2D.h"
+	"Map.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\main.cpp
+	"Game.h"
+	<bits/stdc++.h>
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\map.cpp
+	"Map.h"
+	"TextureManager.h"
+	<bits/stdc++.h>
+	"Character.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\menu.cpp
+	"Menu.h"
+	"StateMachine.h"
+	"Ingame.h"
+	"TextureManager.h"
+	<SDL_mixer.h>
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\menuend.cpp
+	"MenuEnd.h"
+	"StateMachine.h"
+	"TextureManager.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\menupause.cpp
+	"MenuPause.h"
+	"TextureManager.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\statemachine.cpp
+	"StateMachine.h"
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\texturemanager.cpp
+	"TextureManager.h"
+	<SDL_ttf.h>
+
+1714076758 source:c:\users\trunghau\onedrive\máy tính\fai_fai\gameobject\vector2d.cpp
+	"Vector2D.h"
 
