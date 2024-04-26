@@ -24,23 +24,28 @@
 
 |   Quái  | Máu | Kinh nghiệm nhận được khi tiêu diệt | 
 |---------|----------|----------|
-|         |    10    |    10    |
-|         |          |          |
-|         |          |          |
-|         |          |          | 
+|    ![](ImageReview/Massacre%20Sprite%20Sheet.png)     |    10    |    10    |
+|    ![](ImageReview/latest-ezgif.com-gif-to-sprite-converter.png)     |     15     |     15    |
 
 ## **Thông số về từng cấp độ của nhân vật**
 
+| Cấp | Nhân vật | Giáp |
+|-----|----------|------|
+|  1  |![](ImageReview/16x16%20knight%201.png) |   0|
+|  2  | ![](ImageReview/16x16%20knight%202.png) | 10 |
+|  3  | ![](ImageReview/16x16%20knight%203.png) |20 |
+
+
 ## **Cách điều khiển**
 
-| Chức năng   |  Phím ấn |
-|-------------|----------|
-|  Đi lên     |     W    |
-|  Đi xuống   |     S    |
-|  Sang Trái  |     A    |
-|  Sang Phải  |     D    |
-|  Tấn công   |     J    |
-| Tăng tốc di chuyển| Phím di chuyển (W, A, S, D) + Shift Trái |
+| Chức năng   | Hình ảnh |  Phím ấn |
+|-------------|----------|----------|
+|  Đi lên     |         |    W    |
+|  Đi xuống   | |     S    |
+|  Sang Trái  | |    A    |
+|  Sang Phải  |  |   D    |
+|  Tấn công   |  |   J    |
+| Tăng tốc di chuyển|  | Phím di chuyển (W, A, S, D) + Shift Trái |
 
 ## **Cách cài đặt**
 
