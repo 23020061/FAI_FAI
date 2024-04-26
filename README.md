@@ -14,6 +14,8 @@
   
   *Chúng chạy rượt đuổi theo chảng hiệp sĩ và muốn sinh tồn trên hòn đảo này chàng phải chạy trốn khỏi bọn chúng và tìm cách tiêu diệt đám quái vật này.*
 
+Video giới thiệu về game:
+
 ## ***Cách thức chơi game***
   *Bạn phải tìm cách nẽ tránh những đòn tấn công của những còn quái vật hung hăng và tìm cơ hội để tấn công chúng.* 
   
