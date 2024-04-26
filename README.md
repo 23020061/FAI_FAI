@@ -1,8 +1,8 @@
 # ****FAI_FAI****
 
-# ***Phụ lục***
-  - [Giới thiệu về bản thân] (#Giới-thiệu-về-bản-thân)
-
+# Phụ lục
+- [Giới thiệu về bản thân](https://github.com/Dainn98/FloppyBird.git)
+- 
 ## ***Giới thiệu về bản thân***
 
   - Họ và tên: Trần Trung Hậu
