@@ -40,10 +40,10 @@
 
 | Chức năng   | Hình ảnh |  Phím ấn |
 |-------------|----------|----------|
-|  Đi lên     | ![](ImageReview/Top.png)     |    W    |
-|  Đi xuống   |![](ImageReview/Bottom.png) |     S    |
-|  Sang Trái  | ![](ImageReview/Left.png) |    A    |
-|  Sang Phải  | ![](ImageReview/Right.png) |   D    |
+|  Đi lên     |      |    W    |
+|  Đi xuống   ||     S    |
+|  Sang Trái  |  |    A    |
+|  Sang Phải  |  |   D    |
 |  Tấn công   |  ![](ImageReview/ButtonAttack.png)|   J    |
 
 ## **Một vài hình ảnh về Game**
