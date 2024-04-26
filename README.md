@@ -112,6 +112,8 @@
 
 - Khi chia file còn chưa tối ưu, chưa chia thành từng folder.
 
+- Thiếu thời gian để hoàn thiện game nhiều hơn, mới chỉ thể hiện được một phần game mong muốn.
+
 ### **Hướng phát triển game**
 
 - Cập nhật tính năng nhân vật đa dạng hơn để người chơi lựa chọn.
@@ -122,6 +124,12 @@
 
 - Có thể tạo ra chế độ Co-op để có thể chơi cùng bạn bè.
 
+- Thêm tên của người chơi và bảng xếp hạng
+
+- Tạo ra nhiều chiêu thức đa dạng phong phú.
+
+- Tăng thêm độ khó cho game bằng cách mỗi khi người chơi tăng cấp thì quái cũng sẽ thay đổi.
+  
 
 ## **Mức điểm mong muốn: 9.5++/10**
 
