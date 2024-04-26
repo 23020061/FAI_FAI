@@ -165,6 +165,8 @@ Video giới thiệu về game: https://youtu.be/PNMk6r0HRRo
 
 - Thiếu thời gian để hoàn thiện game nhiều hơn, mới chỉ thể hiện được một phần game mong muốn.
 
+- Do tự xây dựng nên chưa thể quản lí tốt dẫn đến một vài bug nên khi muốn update một cái gì mới vào thì sẽ xuất hiện một só lỗi chính vì thế gây khó khăn khi update một tính năng hay ho nào đó(Có lẽ là điều hạn chế lớn nhất đối với em).
+
 ### **Hướng phát triển game**
 
 - Cập nhật tính năng nhân vật đa dạng hơn để người chơi lựa chọn.
