@@ -40,12 +40,23 @@
 
 | Chức năng   | Hình ảnh |  Phím ấn |
 |-------------|----------|----------|
-|  Đi lên     |         |    W    |
-|  Đi xuống   | |     S    |
-|  Sang Trái  | |    A    |
-|  Sang Phải  |  |   D    |
-|  Tấn công   |  |   J    |
-| Tăng tốc di chuyển|  | Phím di chuyển (W, A, S, D) + Shift Trái |
+|  Đi lên     | ![](ImageReview/Top.png)     |    W    |
+|  Đi xuống   |![](ImageReview/Bottom.png) |     S    |
+|  Sang Trái  | ![](ImageReview/Left.png) |    A    |
+|  Sang Phải  | ![](ImageReview/Right.png) |   D    |
+|  Tấn công   |  ![](ImageReview/ButtonAttack.png)|   J    |
+
+## **Một vài hình ảnh về Game**
+- *Bắt đầu*
+![](ImageReview/StartDemo.png)
+
+- *Vào  game*
+
+![](ImageReview/InGame.png)
+
+- *Kết thúc*
+
+![](ImageReview/EndGame.png)
 
 ## **Cách cài đặt**
 
