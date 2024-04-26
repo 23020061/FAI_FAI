@@ -20,11 +20,6 @@ int CurrentState = StartG;
 StateMachine* Machine;
 int checkChange = 0;
 std::string ScoreMain = "";
-std::string Name_;
-
-int HighScore = 0;
-bool changeMain = false;
-std::string HighName = " ";
 
 Game::Game(){}
 Game::~Game(){}
@@ -68,16 +63,7 @@ void Game::HandleEvents()
 void Game::Update()
 {
     checkChange = 0;
-    if(changeMain == true) HighName = Name_;
-
-    if(CurrentState == EndG)
-        {
-            Machine->Update(CurrentState, checkChange, ScoreMain, HighName, HighScore, changeMain);
-        }
-    else
-        {
-            Machine->Update(CurrentState, checkChange, ScoreMain, Name_, HighScore, changeMain);
-        }
+    Machine->Update(CurrentState, checkChange, ScoreMain);
 
     if(checkChange == 1 )
     {
@@ -119,6 +105,7 @@ switch(CurrentState)
     default:
     Machine->Render(1);
     break;
+
 }
 
     SDL_RenderPresent(Renderer);
@@ -127,17 +114,16 @@ switch(CurrentState)
 void Game::Clean()
 {
 
+SDL_DestroyWindow(Window);
+
+SDL_DestroyRenderer(Renderer);
+
 while(Machine != NULL)
     {
         Machine->Popback();
     }
+
     delete Machine;
-
-SDL_DestroyWindow(Window);
-delete Window;
-
-SDL_DestroyRenderer(Renderer);
-delete Renderer;
 
     SDL_Quit();
 }

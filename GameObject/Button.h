@@ -43,6 +43,6 @@ private:
 
     bool check = false;
     std::string text = "";
-    TTF_Font* gFont;
+    TTF_Font* gFont = NULL;
     SDL_Rect TextButton;
 };

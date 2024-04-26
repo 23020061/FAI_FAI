@@ -38,19 +38,23 @@ bool Ingame::End()
         Enemy1_.pop_back();
     }
 
+    Enemy1_.clear();
+
         while(Enemy2_.size() > 0)
     {
         delete Enemy2_.back();
         Enemy2_.pop_back();
     }
 
+    Enemy1_.clear();
+
     MAP->Destroy();
-    delete MAP;
-    Mix_Quit();
+    //delete MAP;
     return true;
+    Mix_Quit();
 }
 
-void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score, std::string &Name_, int &HighScore, bool &changeMain)
+void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
         if(Player->EnterP() == true)
         {
@@ -59,32 +63,28 @@ void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score, std
         }
         else
         {
-        Player->Update(MAP->HasCollision(), Enemy1_, Enemy2_, Name_, HighScore);
-        if(Player->getChangrName() == true)
+        Player->Update(MAP->HasCollision(), Enemy1_, Enemy2_);
+
+        while(Enemy1_.size() < 10 )
         {
-            changeMain = true;
-        }
-        else
-            changeMain = false;
-        while(Enemy1_.size() < 20 )
-        {
-            int x, y;
-            x = GetRandom(192, 2976);
-            y = GetRandom(96, 3102);
+           int x, y;
+        x = GetRandom(192, 2976);
+           y = GetRandom(96, 3102);
             Enemy1_.push_back(new Enemy1(x, y));
        }
 
         for(int i = 0; i < Enemy1_.size(); i++)
         {
             Enemy1_[i]->Update(Player->getPosChar(), Player->GetColli(), Player->GetPositionCam());
-            if(Enemy1_[i]->checkDead == true)
+            if( Enemy1_[i]->checkDead == true)
             {
                 delete Enemy1_[i];
                 Enemy1_.erase(Enemy1_.begin() + i);
                 i--;
             }
         }
-                while(Enemy2_.size() < 0)
+
+                while(Enemy2_.size() < 10)
         {
             int x, y;
             x = GetRandom(192, 2976);
@@ -105,6 +105,7 @@ void Ingame::Update(int &CurrentState, int &checkChange, std::string &Score, std
 
         if(Player->Exit() == true)
         {
+            End();
             CurrentState = EndG;
             checkChange = 1;
         }

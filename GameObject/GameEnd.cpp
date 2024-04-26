@@ -17,9 +17,9 @@ bool GameEnd::End()
     return true;
 }
 
-void GameEnd::Update(int &CurrentState, int &checkChange, std::string &Score, std::string &Name_, int &HighScore, bool &changeMain)
+void GameEnd::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
-        MenuExit->Update(Score, Name_);
+        MenuExit->Update(Score);
         if(MenuExit->InputReplay() == true)
         {
             End();
@@ -32,7 +32,6 @@ void GameEnd::Update(int &CurrentState, int &checkChange, std::string &Score, st
             CurrentState = Quit;
             checkChange = 1;
         }
-
 }
 
 void GameEnd::Render()

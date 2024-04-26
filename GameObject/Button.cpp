@@ -82,14 +82,12 @@ Button::~Button()
     SDL_DestroyTexture(TextureText);
     delete TextureText;
 
-
     SDL_DestroyTexture(TextureButton);
     delete TextureButton;
 
-    delete gFont;
-
     TTF_Quit();
-    TTF_CloseFont(gFont);
+    //TTF_CloseFont(gFont);
+    //delete gFont;
 }
 
 void Button::Update()

@@ -18,7 +18,7 @@ bool GamePause::End()
     return true;
 }
 
-void GamePause::Update(int &CurrentState, int &checkChange, std::string &Score, std::string &Name_, int &HighScore, bool &changeMain)
+void GamePause::Update(int &CurrentState, int &checkChange, std::string &Score)
 {
     MenuStop->Update();
 

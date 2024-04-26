@@ -8,7 +8,7 @@ public:
 
     virtual bool Start();
     virtual bool End();
-    virtual void Update(int &CurrentState, int &checkChange, std::string &Score, std::string &Name_, int &HighScore, bool &changeMain);
+    virtual void Update(int &CurrentState, int &checkChange, std::string &Score);
     virtual void Render();
     virtual void Handle(SDL_Event &Event);
 

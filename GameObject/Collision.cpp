@@ -9,7 +9,7 @@ Collision::Collision(int x, int y, int w, int h)
 }
 
 
-bool Collision::checkCollision(Collision b)
+bool Collision::checkCollision( Collision b)
 {
     int leftA, leftB;
     int rightA, rightB;

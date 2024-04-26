@@ -11,6 +11,8 @@ void MenuPause::Clear()
 {
     delete Resume;
     delete Regame;
+
+
 }
 
 void MenuPause::Update()
@@ -39,4 +41,5 @@ void MenuPause::Render()
 {
     Resume->Render();
     Regame->Render();
+
 }
