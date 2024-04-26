@@ -79,13 +79,6 @@ Character::Character(const char* path,int x, int y)
     Cam.w = CAM_WIDTH;
     Cam.h = CAM_HEIGHT;
 
-    Right = TextureManager::LoadTexture("Right.png");
-    Left = TextureManager::LoadTexture("Left.png");
-    Bottom = TextureManager::LoadTexture("Bottom.png");
-    Top = TextureManager::LoadTexture("Top.png");
-    None = TextureManager::LoadTexture("None.png");
-
-    TexMove = None;
     for(int i = 0; i < STATE_TOTAL; i++)
     {
         int tmp;
@@ -246,14 +239,12 @@ void Character::InputHandle(SDL_Event& event)
             bool state = false;
             if(CurrentKeyState[SDL_SCANCODE_D])
         {
-            TexMove = Right;
             state = true;
             Check = SDL_FLIP_NONE;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.x += CHARACTER_VEL;
         } else if(CurrentKeyState[SDL_SCANCODE_A])
         {
-            TexMove = Left;
             state = true;
             Check = SDL_FLIP_HORIZONTAL;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
@@ -261,14 +252,12 @@ void Character::InputHandle(SDL_Event& event)
         }
             else if(CurrentKeyState[SDL_SCANCODE_S])
         {
-            TexMove = Bottom;
             state = true;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.y += CHARACTER_VEL;
         }
         else if(CurrentKeyState[SDL_SCANCODE_W])
         {
-            TexMove = Top;
             state = true;
             LoadSpriteState(cntMOVERUN, MOVERUN, STATE_MOVERUN);
             Velocity.y -= CHARACTER_VEL;
@@ -277,7 +266,6 @@ void Character::InputHandle(SDL_Event& event)
         if(state == false)
         {
             LoadSpriteState(cntIDLE, IDLE, STATE_IDLE);
-            TexMove = None;
         }
 
         }
@@ -486,7 +474,7 @@ void Character::Render()
         Exp_Char = 0;
     }
    // std::cout << Cam.x << ' ' << Cam.y << '\n';
-   TextureManager::Render(30, 580, 200, 200, TexMove, NULL, 0, NULL, SDL_FLIP_NONE);
+
     TextureManager::Render(1100, 40, RectScore.w, RectScore.h, TexScore, NULL, 0, NULL, SDL_FLIP_NONE);
     TextureManager::Render(1100, 680, 60, 60, ButtonAttack, NULL, 0, NULL, SDL_FLIP_NONE);
    // TextureManager::Render(1100, 680, TextAttack.w, TextAttack.h, TimeCoolDownAttack, NULL, 0, NULL, SDL_FLIP_NONE);
@@ -524,15 +512,6 @@ Character::~Character()
     SDL_DestroyTexture(ExpHolderRight);
 
     delete ExpLeft, ExpRight, ExpCenter, IconExp, ExpHolderCenter, ExpHolderLeft, ExpHolderRight;
-    SDL_DestroyTexture(Top);
-    SDL_DestroyTexture(Bottom);
-    SDL_DestroyTexture(Left);
-    SDL_DestroyTexture(Right);
-    SDL_DestroyTexture(None);
-    SDL_DestroyTexture(TexMove);
-
-    delete Top, Bottom, Top, Left, None, TexMove;
-
 
     TTF_Quit();
 }

@@ -118,8 +118,5 @@ private:
     std::string ScoreChar = "Score:";
     std::string total = "";
     bool checkP = false;
-
-    SDL_Texture *Top, *Bottom, *Right, *Left, *None, *TexMove;
-
 };
 
