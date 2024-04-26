@@ -47,7 +47,7 @@ Video giới thiệu về game:
 |  Sang Trái  |  |    A    |
 |  Sang Phải  |  |   D    |
 |  Tấn công   |  ![](ImageReview/ButtonAttack.png)|   J    |
-
+| Tạm dừng trò chơi|  |   P  |
 ## **Một vài hình ảnh về Game**
 - *Bắt đầu*
 ![](ImageReview/StartDemo.png)
@@ -60,13 +60,60 @@ Video giới thiệu về game:
 
 ![](ImageReview/EndGame.png)
 
+## **Cấu trúc của game**
+
+- Game.cpp: Chuyển trạng thái của game (Bắt đầu, vào trong game, kết thúc)
+
+- StateMachine.cpp:
+
+          là một máy kiểm soát trạng thái của game lưu dưới dạng vector, có thể chèn trạng thái này xảy ra trước, xóa trạng thái hiện tại, tạo mộ trạng thái mới,...
+  
+  - GameState.h:
+
+        Một lớp class cơ bản để cho các trạng thái bắt đầu, vào game, kết thúc được kế thừa từ đây.
+    
+  - GameStart.cpp:
+    
+        - Menu.cpp: hiển thị các nút play, quit, background, tên game, ân thanh.
+    
+  - InGame.cpp :
+    
+        - Character.cpp: liên quan tới hình ảnh nhân vật, trạng thái(máu, kinh nghiệm), chuyển động nhân vật khi nhận các sự kiện, các tương tác của nhân vật với map, với kẻ địch, các kĩ năng của nhân vật.
+    
+        - Enemy.cpp: chữa dữ liệu về quái, chuyển động của quái, mục tiêu nhắm tới để di chuyển theo, cách tấn công, máu.
+    
+        - Map.cpp: Cách tải map lên từ các tileset, các tương tác giữa map với nhân vật( không thể di chuyển qua hòn đá, cây cối,..)
+- PauseGame.cpp:
+  
+        - MenuPause: Hiển thị các nút và các chức năng của nút để chuyển giữa trạng thái pause và continue, restart.
+- EndGame.cpp:
+
+        - MenuEnd: Chứa các nút restart, quit, background, điểm người chơi khi nhân vật hết máu.
+
+- Button.cpp:
+
+          một lớp về hiển thị các nút chứa: khung + chữ. Các tính năng liên quan đến nút.
+
+- TextureManager.cpp:
+
+          Quản lí việc tải texture, tải text, hiển thị texture.
+
+- Vector2D.cpp:
+
+        để lưu tọa độ của nhân vật, quái phục vụ cho tương tác giữa vật và quái.
+
+- Collision.cpp:
+
+        Một lớp về các va chạm, tương tác va chạm giữa các vật thể, thông báo về các va chạm.
+      
+
 ## **Cách cài đặt**
 
 - Bước 1: Download file về máy
 
 - Bước 2: Giải nén
 
-- Bước 3: Tìm file GameObject.exe, mở file ra và thưởng thức trò chơi.
+- Bước 3: Tìm file GameObject.exe, mở file ra và tận hưởng trò chơi.
 
 
 ## **Kỹ thuật sử dụng**
